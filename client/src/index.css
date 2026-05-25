@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0d0d0f;
+    color: #f0f0f8;
+    font-family: 'DM Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #35354a; border-radius: 10px; }
+}
+
+@layer components {
+  .card {
+    @apply bg-bg-3 border border-border rounded-2xl;
+  }
+  .btn-primary {
+    @apply bg-accent text-white px-5 py-2.5 rounded-xl font-medium text-sm
+           hover:bg-[#5a52e8] active:scale-95 transition-all duration-150 flex items-center gap-2;
+  }
+  .btn-outline {
+    @apply bg-transparent text-white border border-border-2 px-5 py-2.5 rounded-xl font-medium text-sm
+           hover:bg-bg-4 active:scale-95 transition-all duration-150 flex items-center gap-2;
+  }
+  .btn-ghost {
+    @apply bg-transparent text-[#7a7a8a] px-3 py-2 rounded-lg text-sm
+           hover:bg-bg-4 hover:text-white transition-all duration-150 flex items-center gap-2;
+  }
+  .input {
+    @apply w-full bg-bg-4 border border-border text-white rounded-xl px-4 py-3 text-sm
+           placeholder:text-[#4a4a5a] focus:outline-none focus:border-accent transition-colors;
+  }
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  .badge-purple { @apply badge bg-purple-500/10 text-purple-300; }
+  .badge-green  { @apply badge bg-emerald-500/10 text-emerald-400; }
+  .badge-amber  { @apply badge bg-amber-500/10 text-amber-400; }
+  .badge-red    { @apply badge bg-red-500/10 text-red-400; }
+  .badge-blue   { @apply badge bg-sky-500/10 text-sky-400; }
+  .section-title { @apply text-xs text-[#4a4a5a] uppercase tracking-widest font-medium mb-2 px-3; }
+}
