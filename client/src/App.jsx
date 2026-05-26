@@ -22,7 +22,7 @@ import PeerMock       from './pages/PeerMock';
 
 // ── Route Guards ─────────────────────────────────────
 
-// If not logged in → redirect to /login
+// If not logged in  redirect to /login
 const Protected = ({ children }) => {
   const { token, initialized } = useAuthStore();
 
@@ -38,7 +38,7 @@ const Protected = ({ children }) => {
   return token ? children : <Navigate to="/login" replace />;
 };
 
-// If already logged in → redirect to /dashboard (don't show login/register again)
+// If already logged in  redirect to /dashboard (don't show login/register again)
 const Guest = ({ children }) => {
   const { token } = useAuthStore();
   return token ? <Navigate to="/dashboard" replace /> : children;
@@ -93,7 +93,7 @@ export default function App() {
       </Route>
 
       {/* ── FALLBACK ──────────────────────────────────────── */}
-      {/* Any unknown URL → back to landing */}
+      {/* Any unknown URL  back to landing */}
       <Route path="*" element={<Navigate to="/" replace />} />
 
     </Routes>

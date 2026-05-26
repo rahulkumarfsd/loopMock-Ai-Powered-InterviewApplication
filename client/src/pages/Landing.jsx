@@ -288,7 +288,7 @@ function Hero() {
                     <span>!</span> Missed: discuss collision handling for hash truncation.
                   </div>
                   <div className="flex items-start gap-2 rounded-lg bg-secondary/50 p-2.5 text-muted-foreground">
-                    <span>›</span> Suggest adding back-of-envelope: 10K writes/sec → 864M/day → ~10 TB/year.
+                    <span>›</span> Suggest adding back-of-envelope: 10K writes/sec  864M/day  ~10 TB/year.
                   </div>
                 </div>
               </div>
@@ -478,7 +478,7 @@ function CodingEnv() {
               <div className="mt-4 space-y-2">
                 <div className="rounded-md bg-secondary/40 p-2">
                   <div className="text-[10px] uppercase text-muted-foreground">Example</div>
-                  <code className="text-foreground">nums = [2,7,11,15], target = 9 → [0,1]</code>
+                  <code className="text-foreground">nums = [2,7,11,15], target = 9  [0,1]</code>
                 </div>
               </div>
               <div className="mt-4 flex flex-wrap gap-1.5">
@@ -733,7 +733,7 @@ function Companies() {
                 <p className="mt-1 text-xs text-muted-foreground">{c.focus}</p>
                 <div className="mt-5 flex items-center justify-between text-xs">
                   <span className="text-muted-foreground">240+ questions · 6 mock rounds</span>
-                  <span className="text-brand transition-transform group-hover:translate-x-1">Practice →</span>
+                  <span className="text-brand transition-transform group-hover:translate-x-1">Practice </span>
                 </div>
               </div>
             </div>

@@ -1,115 +1,153 @@
+import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import useAuthStore from '../../store/authStore';
+import {
+  LayoutDashboard,
+  Brain,
+  Terminal,
+  BarChart3,
+  Building2,
+  FileCheck2,
+  Users2,
+  LogOut,
+  Menu,
+  X,
+  Sparkles
+} from 'lucide-react';
 
 const NAV = [
-  { to: '/dashboard', label: 'Dashboard',    emoji: '🏠', section: 'main'     },
-  { to: '/interview', label: 'AI Interview', emoji: '🧠', section: 'main'     },
-  { to: '/coding',    label: 'Coding',       emoji: '💻', section: 'main'     },
-  { to: '/analytics', label: 'Analytics',    emoji: '📊', section: 'practice' },
-  { to: '/companies', label: 'Company Prep', emoji: '🏢', section: 'practice' },
-  { to: '/resume',    label: 'Resume AI',    emoji: '📄', section: 'practice', badge: 'AI' },
-  { to: '/peer',      label: 'Peer Mock',    emoji: '👥', section: 'practice' },
+  { to: '/dashboard', label: 'Dashboard',   icon: LayoutDashboard, section: 'main' },
+  { to: '/interview', label: 'AI Interview', icon: Brain,           section: 'main' },
+  { to: '/coding',    label: 'Coding',       icon: Terminal,        section: 'main' },
+  { to: '/analytics', label: 'Analytics',    icon: BarChart3,       section: 'practice' },
+  { to: '/companies', label: 'Company Prep', icon: Building2,       section: 'practice' },
+  { to: '/resume',    label: 'Resume AI',    icon: FileCheck2,      section: 'practice', badge: 'AI' },
+  { to: '/peer',      label: 'Peer Mock',    icon: Users2,          section: 'practice' },
 ];
 
 export default function Sidebar() {
-  const navigate       = useNavigate();
+  const navigate = useNavigate();
   const { user, logout } = useAuthStore();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = async () => {
     await logout();
     navigate('/', { replace: true });
   };
 
+  const toggleMenu = () => setIsOpen(!isOpen);
+
+  // Reusable Nav item renderer block
+  const renderNavLinks = (sectionType) => (
+    NAV.filter((n) => n.section === sectionType).map((item) => {
+      const Icon = item.icon;
+      return (
+        <NavLink
+          key={item.to}
+          to={item.to}
+          onClick={() => setIsOpen(false)}
+          className={({ isActive }) => `
+            flex items-center gap-3 px-3 py-2 sm:py-2.5 rounded-xl text-sm font-medium transition-all duration-150 border-l-2
+            ${isActive 
+              ? 'bg-[#6c63ff]/10 text-[#a78bfa] border-l-[#6c63ff]' 
+              : 'text-[#ffffff]/60 border-l-transparent hover:bg-[#ffffff]/5 hover:text-[#ffffff]'
+            }
+          `}
+        >
+          <Icon size={16} className="shrink-0" />
+          <span className="flex-1 truncate">{item.label}</span>
+          {item.badge && (
+            <span className="text-[9px] font-bold bg-[#6c63ff] text-white px-2 py-0.5 rounded-full uppercase tracking-wider animate-pulse">
+              {item.badge}
+            </span>
+          )}
+        </NavLink>
+      );
+    })
+  );
+
   return (
-    <aside style={{
-      width: 220, flexShrink: 0,
-      background: '#111116',
-      borderRight: '1px solid rgba(255,255,255,0.06)',
-      display: 'flex', flexDirection: 'column',
-      height: '100vh', position: 'sticky', top: 0,
-      fontFamily: "'Inter', Arial, sans-serif",
-    }}>
-
-      {/* Logo */}
-      <div style={{ padding: '24px 20px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-        <span style={{ fontWeight: 700, fontSize: 18, letterSpacing: '-0.4px', color: '#fff' }}>
-          Inter<span style={{ color: '#6c63ff' }}>AI</span>
-        </span>
-      </div>
-
-      {/* Nav */}
-      <nav style={{ flex: 1, overflowY: 'auto', padding: '12px 10px' }}>
-        {['main', 'practice'].map((section) => (
-          <div key={section} style={{ marginBottom: 8 }}>
-            <p style={{
-              fontSize: 10, fontWeight: 600, letterSpacing: '0.12em',
-              textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)',
-              padding: '6px 10px 4px', margin: 0,
-            }}>
-              {section === 'main' ? 'Main' : 'Practice'}
-            </p>
-            {NAV.filter((n) => n.section === section).map((item) => (
-              <NavLink key={item.to} to={item.to}
-                style={({ isActive }) => ({
-                  display: 'flex', alignItems: 'center', gap: 10,
-                  padding: '9px 10px', borderRadius: 8, marginBottom: 2,
-                  textDecoration: 'none', fontSize: 14, fontWeight: 500,
-                  transition: 'all 0.15s',
-                  background:   isActive ? 'rgba(108,99,255,0.15)' : 'transparent',
-                  color:        isActive ? '#a78bfa' : 'rgba(255,255,255,0.6)',
-                  borderLeft:   isActive ? '2px solid #6c63ff' : '2px solid transparent',
-                })}>
-                <span style={{ fontSize: 16 }}>{item.emoji}</span>
-                <span style={{ flex: 1 }}>{item.label}</span>
-                {item.badge && (
-                  <span style={{
-                    fontSize: 9, fontWeight: 700, background: '#6c63ff',
-                    color: '#fff', padding: '2px 6px', borderRadius: 20,
-                  }}>
-                    {item.badge}
-                  </span>
-                )}
-              </NavLink>
-            ))}
-          </div>
-        ))}
-      </nav>
-
-      {/* User card */}
-      <div style={{ padding: '12px 10px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: 10,
-          background: 'rgba(255,255,255,0.04)', borderRadius: 10,
-          padding: '10px 12px', border: '1px solid rgba(255,255,255,0.06)',
-        }}>
-          {/* Avatar */}
-          <div style={{
-            width: 32, height: 32, borderRadius: 8, flexShrink: 0,
-            background: 'linear-gradient(135deg, #6c63ff, #ec4899)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 13, fontWeight: 700, color: '#fff',
-          }}>
-            {user?.name?.[0]?.toUpperCase() || 'U'}
-          </div>
-
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <p style={{ fontSize: 13, fontWeight: 600, color: '#fff', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              {user?.name || 'User'}
-            </p>
-            <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              {user?.email || ''}
-            </p>
-          </div>
-
-          {/* Logout */}
-          <button onClick={handleLogout} title="Sign out"
-            style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.3)', fontSize: 16, padding: 4, flexShrink: 0, lineHeight: 1, transition: 'color 0.2s' }}
-            onMouseEnter={(e) => e.currentTarget.style.color = '#f87171'}
-            onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.3)'}>
-            ⏻
-          </button>
+    <>
+      {/* Mobile Top Navbar Header Block */}
+      <header className="md:hidden fixed top-0 inset-x-0 h-14 bg-[#111116] border-b border-[#ffffff]/10 px-4 flex items-center justify-between z-50">
+        <div className="flex items-center gap-2">
+          <span className="grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-[#6c63ff] to-[#ec4899]">
+            <Sparkles size={14} className="text-white" />
+          </span>
+          <span className="font-bold text-base tracking-tight text-white">
+            Loop<span className="text-[#6c63ff]">Mock</span>
+          </span>
         </div>
-      </div>
-    </aside>
+        <button onClick={toggleMenu} className="p-1 text-[#ffffff]/60 hover:text-white transition-colors focus:outline-none">
+          {isOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+      </header>
+
+      {/* Persistent Left Sidebar Framework (Desktop) & Overlay Drawer Shell (Mobile) */}
+      <aside className={`
+        fixed inset-y-0 left-0 w-[240px] md:w-[220px] bg-[#111116] border-r border-[#ffffff]/10 
+        flex flex-col h-screen md:sticky md:top-0 z-40 transition-transform duration-300 ease-in-out font-sans
+        ${isOpen ? 'translate-x-0 pt-14' : '-translate-x-full md:translate-x-0'}
+      `}>
+        {/* Company Header Logo — Hidden completely on mobile menu views */}
+        <div className="hidden md:flex items-center gap-2.5 p-5 border-b border-[#ffffff]/10">
+          <span className="grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-[#6c63ff] to-[#ec4899] shadow-[0_0_20px_rgba(108,99,255,0.3)]">
+            <Sparkles size={14} className="text-white" />
+          </span>
+          <span className="font-bold text-lg tracking-tight text-white">
+            Loop<span className="text-[#6c63ff]">Mock</span>
+          </span>
+        </div>
+
+        {/* Dynamic Nested Nav Block */}
+        <nav className="flex-1 overflow-y-auto p-3 space-y-4 custom-scrollbar">
+          {['main', 'practice'].map((section) => (
+            <div key={section} className="space-y-1">
+              <p className="text-[10px] font-bold tracking-widest text-[#ffffff]/30 uppercase px-3 mb-1.5 select-none">
+                {section === 'main' ? 'Main Setup' : 'Practice Labs'}
+              </p>
+              {renderNavLinks(section)}
+            </div>
+          ))}
+        </nav>
+
+        {/* Authenticated Account Profile Card Footer */}
+        <div className="p-3 border-t border-[#ffffff]/10 bg-[#0d0d0f]/40">
+          <div className="flex items-center gap-3 bg-[#ffffff]/5 rounded-xl p-3 border border-[#ffffff]/5 group">
+            {/* Account Profile Character Avatar Node */}
+            <div className="w-8 h-8 rounded-lg shrink-0 bg-gradient-to-br from-[#6c63ff] to-[#ec4899] flex items-center justify-center text-xs font-bold text-white shadow-md">
+              {user?.name?.[0]?.toUpperCase() || 'U'}
+            </div>
+
+            {/* Profile Context strings */}
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-semibold text-white truncate leading-tight">
+                {user?.name || 'User Profile'}
+              </p>
+              <p className="text-[10px] text-[#ffffff]/40 truncate mt-0.5 font-mono">
+                {user?.email || 'dev@loopmock.app'}
+              </p>
+            </div>
+
+            {/* Session Logout Action Button Toggle */}
+            <button 
+              onClick={handleLogout} 
+              title="Sign out session"
+              className="text-[#ffffff]/40 hover:text-danger-400 p-1 rounded-lg hover:bg-white/5 shrink-0 transition-colors duration-150 focus:outline-none"
+            >
+              <LogOut size={15} />
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      {/* Backdrop Dimmer overlay layout mask (Mobile contextual toggle block) */}
+      {isOpen && (
+        <div 
+          onClick={() => setIsOpen(false)}
+          className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-30 animate-fade-in"
+        />
+      )}
+    </>
   );
 }
