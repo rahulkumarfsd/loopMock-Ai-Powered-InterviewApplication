@@ -9,7 +9,7 @@ const axios = require('axios');
 
 const JUDGE0_URL = 'https://ce.judge0.com';
 
-// Language name → Judge0 language_id
+// Language name  Judge0 language_id
 // Full list: https://ce.judge0.com/languages
 const LANGUAGE_IDS = {
   javascript: 63,   // Node.js 12.14.0

@@ -6,7 +6,7 @@
 //  * Setup:
 //  * 1. npm install razorpay
 //  * 2. Sign up at razorpay.com (free, no international card needed)
-//  * 3. Dashboard → Settings → API Keys → Generate Key
+//  * 3. Dashboard  Settings  API Keys  Generate Key
 //  * 4. Add to .env: RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET
 //  */
 // const Razorpay = require('razorpay');
@@ -83,7 +83,7 @@
 //   if (!planId) {
 //     throw new Error(
 //       `RAZORPAY_${plan.toUpperCase()}_PLAN_ID not set in .env. ` +
-//       'Create a plan in Razorpay Dashboard → Subscriptions → Plans'
+//       'Create a plan in Razorpay Dashboard  Subscriptions  Plans'
 //     );
 //   }
 

@@ -42,7 +42,7 @@ const templates = {
       <li>📄 Upload your resume for <b>AI skill gap analysis</b></li>
       <li>🏢 Prep for <b>Amazon, Google, TCS, Infosys</b> and more</li>
     </ul>
-    ${btn('Start Practicing →', `${APP_URL}/dashboard`)}
+    ${btn('Start Practicing ', `${APP_URL}/dashboard`)}
   `),
 
   weeklyReport: (name, stats) => base(`
@@ -55,30 +55,30 @@ const templates = {
       ${stat('Best Topic', stats.bestTopic || 'N/A')}
     </div>
     ${stats.weakTopic ? p(`💡 Focus area: <b>${stats.weakTopic}</b>`) : ''}
-    ${btn('View Analytics →', `${APP_URL}/analytics`)}
+    ${btn('View Analytics ', `${APP_URL}/analytics`)}
   `),
 
   streakReminder: (name, days) => base(`
     ${h1(`Don't break your ${days}-day streak! 🔥`)}
     ${p(`Your <b>${days}-day streak</b> is at risk. Just one session keeps it alive.`)}
-    ${btn('Practice Now →', `${APP_URL}/interview`, '#f59e0b')}
+    ${btn('Practice Now ', `${APP_URL}/interview`, '#f59e0b')}
   `),
 
   verifyEmail: (name, token) => base(`
     ${h1(`Verify your email, ${name}`)}
     ${p('Click below to verify your email. Link expires in 24 hours.')}
-    ${btn('Verify Email →', `${APP_URL}/verify-email?token=${token}`)}
+    ${btn('Verify Email ', `${APP_URL}/verify-email?token=${token}`)}
   `),
 };
 
 const send = async ({ to, subject, html }) => {
   if (!process.env.RESEND_API_KEY) {
-    console.log(`[Email disabled] "${subject}" → ${to}`);
+    console.log(`[Email disabled] "${subject}"  ${to}`);
     return;
   }
   try {
     await resend.emails.send({ from: FROM, to, subject, html });
-    console.log(`✉️  Sent "${subject}" → ${to}`);
+    console.log(`✉️  Sent "${subject}"  ${to}`);
   } catch (err) {
     console.error('Email error:', err.message);
   }

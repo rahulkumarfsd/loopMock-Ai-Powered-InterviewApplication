@@ -200,7 +200,7 @@ int main() {
   // ════════════════════════════════════════
   {
     title: 'Valid Parentheses',
-    body: 'Given string `s` of `(`, `)`, `{`, `}`, `[`, `]` — return `true` if it is valid. Open brackets must be closed by same type in correct order.\n\n**Examples:**\n```\n"()"     → true\n"()[]{}" → true\n"(]"     → false\n"([)]"   → false\n"{[]}"   → true\n```',
+    body: 'Given string `s` of `(`, `)`, `{`, `}`, `[`, `]` — return `true` if it is valid. Open brackets must be closed by same type in correct order.\n\n**Examples:**\n```\n"()"      true\n"()[]{}"  true\n"(]"      false\n"([)]"    false\n"{[]}"    true\n```',
     type: 'dsa', difficulty: 'easy', topic: 'stacks',
     company: ['amazon', 'google', 'facebook', 'microsoft', 'infosys'],
     coding: {
@@ -263,7 +263,7 @@ int main() {
       timeLimit: 5000,
     },
     hints: ['Push open brackets to stack', 'On close bracket, pop and check match'],
-    evaluationCriteria: ['Stack', 'All bracket types', 'Empty string → true'],
+    evaluationCriteria: ['Stack', 'All bracket types', 'Empty string  true'],
     tags: ['stack', 'string'],
   },
 
@@ -352,7 +352,7 @@ int main() {
   // ════════════════════════════════════════
   {
     title: 'Climbing Stairs',
-    body: 'You can climb **1 or 2 steps** at a time. How many distinct ways to reach the top of n stairs?\n\n**Example 1:** n=2 → 2 ([1+1], [2])\n**Example 2:** n=3 → 3 ([1+1+1], [1+2], [2+1])',
+    body: 'You can climb **1 or 2 steps** at a time. How many distinct ways to reach the top of n stairs?\n\n**Example 1:** n=2  2 ([1+1], [2])\n**Example 2:** n=3  3 ([1+1+1], [1+2], [2+1])',
     type: 'dsa', difficulty: 'easy', topic: 'dynamic-programming',
     company: ['amazon', 'google', 'adobe', 'tcs'],
     coding: {
@@ -421,7 +421,7 @@ int main() {
   // ════════════════════════════════════════
   {
     title: 'Longest Substring Without Repeating Characters',
-    body: 'Find the length of the **longest substring without repeating characters**.\n\n**Examples:**\n```\n"abcabcbb" → 3  ("abc")\n"bbbbb"    → 1  ("b")\n"pwwkew"   → 3  ("wke")\n```',
+    body: 'Find the length of the **longest substring without repeating characters**.\n\n**Examples:**\n```\n"abcabcbb"  3  ("abc")\n"bbbbb"     1  ("b")\n"pwwkew"    3  ("wke")\n```',
     type: 'dsa', difficulty: 'medium', topic: 'strings',
     company: ['amazon', 'bloomberg', 'facebook', 'tcs', 'infosys'],
     coding: {
@@ -483,7 +483,7 @@ int main() {
       timeLimit: 5000,
     },
     hints: ['Sliding window with a Set', 'Move left pointer when duplicate found'],
-    evaluationCriteria: ['Sliding window O(n)', 'Empty string → 0', 'All same → 1'],
+    evaluationCriteria: ['Sliding window O(n)', 'Empty string  0', 'All same  1'],
     tags: ['string', 'sliding-window', 'hash-map'],
   },
 
@@ -492,7 +492,7 @@ int main() {
   // ════════════════════════════════════════
   {
     title: 'Coin Change',
-    body: 'Return the **minimum coins** to make up `amount`. Return `-1` if impossible.\n\n**Example 1:** coins=[1,5,11], amount=15 → 3 (5+5+5)\n**Example 2:** coins=[2], amount=3 → -1',
+    body: 'Return the **minimum coins** to make up `amount`. Return `-1` if impossible.\n\n**Example 1:** coins=[1,5,11], amount=15  3 (5+5+5)\n**Example 2:** coins=[2], amount=3  -1',
     type: 'dsa', difficulty: 'medium', topic: 'dynamic-programming',
     company: ['amazon', 'google', 'microsoft', 'uber'],
     coding: {
@@ -568,7 +568,7 @@ int main() {
       timeLimit: 5000,
     },
     hints: ['dp[i] = min coins to make amount i', 'Initialize with Infinity, dp[0]=0'],
-    evaluationCriteria: ['Correct DP', '-1 when impossible', 'amount=0 → 0'],
+    evaluationCriteria: ['Correct DP', '-1 when impossible', 'amount=0  0'],
     tags: ['dynamic-programming', 'bottom-up'],
   },
 
@@ -577,7 +577,7 @@ int main() {
   // ════════════════════════════════════════
   {
     title: 'Number of Islands',
-    body: 'Count islands in a grid of `1` (land) and `0` (water). Islands are groups of adjacent land cells (horizontally/vertically).\n\n**Example:**\n```\n11000\n11000\n00100\n00011\n→ 3 islands\n```',
+    body: 'Count islands in a grid of `1` (land) and `0` (water). Islands are groups of adjacent land cells (horizontally/vertically).\n\n**Example:**\n```\n11000\n11000\n00100\n00011\n 3 islands\n```',
     type: 'dsa', difficulty: 'medium', topic: 'graphs',
     company: ['amazon', 'google', 'facebook', 'microsoft', 'uber'],
     coding: {
@@ -670,7 +670,7 @@ int main() {
       'Read-heavy: cache hot URLs in Redis (80% traffic = 20% of URLs)',
       'NoSQL (Cassandra/DynamoDB) for URL key-value storage — horizontally scalable',
     ],
-    evaluationCriteria: ['Capacity estimation', 'API: POST /shorten, GET /:code → 301', 'Collision handling', 'Redis caching', 'DB sharding', 'Analytics pipeline'],
+    evaluationCriteria: ['Capacity estimation', 'API: POST /shorten, GET /:code  301', 'Collision handling', 'Redis caching', 'DB sharding', 'Analytics pipeline'],
     tags: ['system-design', 'caching', 'hashing', 'database'],
   },
   {
@@ -746,7 +746,7 @@ int main() {
   },
   {
     title: 'Implement Debounce and Throttle',
-    body: 'Implement **debounce** — ensures a function is only called after a specified delay since the last invocation.\n\nThen implement **throttle** — ensures a function is called at most once per interval.\n\nExplain real-world use cases for each.\n\n```js\nconst debouncedSearch = debounce(search, 300);\n// user types → only calls search 300ms after they stop\n```',
+    body: 'Implement **debounce** — ensures a function is only called after a specified delay since the last invocation.\n\nThen implement **throttle** — ensures a function is called at most once per interval.\n\nExplain real-world use cases for each.\n\n```js\nconst debouncedSearch = debounce(search, 300);\n// user types  only calls search 300ms after they stop\n```',
     type: 'frontend', difficulty: 'medium', topic: 'javascript-patterns',
     company: ['amazon', 'facebook', 'google', 'microsoft', 'flipkart'],
     hints: ['Debounce: clearTimeout on each call, setTimeout at end', 'Throttle: track last execution time', 'Debounce use case: search input', 'Throttle use case: scroll events'],
@@ -758,7 +758,7 @@ int main() {
     body: 'Explain how React\'s reconciliation algorithm works:\n\n1. What is the Virtual DOM and why does it exist?\n2. How does React\'s diffing achieve O(n) complexity?\n3. What are the two key assumptions React makes?\n4. Why are `key` props critical in list rendering?\n5. What is React Fiber? What problem does it solve?\n\nBonus: What triggers a re-render? How do `React.memo`, `useMemo`, `useCallback` help?',
     type: 'frontend', difficulty: 'hard', topic: 'react-internals',
     company: ['facebook', 'airbnb', 'netflix', 'twitter'],
-    hints: ['VirtualDOM = lightweight JS copy of real DOM', 'Two assumptions: different types → different trees; keys stabilize list identity', 'Fiber: interruptible rendering for animations', 'Re-render: setState, prop change, context, parent re-render'],
+    hints: ['VirtualDOM = lightweight JS copy of real DOM', 'Two assumptions: different types  different trees; keys stabilize list identity', 'Fiber: interruptible rendering for animations', 'Re-render: setState, prop change, context, parent re-render'],
     evaluationCriteria: ['Virtual DOM as optimization', 'O(n) diffing with 2 heuristics', 'Keys explained correctly', 'Fiber concurrent rendering', 'Memoization techniques'],
     tags: ['react', 'virtual-dom', 'reconciliation', 'fiber'],
   },
@@ -771,7 +771,7 @@ int main() {
     body: 'When do you choose SQL vs NoSQL? For each use case below, which database type would you pick and why?\n\n- E-commerce order management (consistency critical)\n- Real-time game leaderboard\n- User activity feed\n- IoT sensor time-series data\n- Social graph (who follows whom)\n- Document storage (contracts, resumes)\n\nAlso explain: ACID vs BASE, CAP theorem.',
     type: 'backend', difficulty: 'medium', topic: 'databases',
     company: ['amazon', 'google', 'microsoft', 'stripe', 'shopify'],
-    hints: ['Orders → PostgreSQL (ACID transactions)', 'Leaderboard → Redis sorted sets', 'Activity feed → Cassandra (write-heavy, time-series)', 'Social graph → Neo4j or recursive SQL', 'Documents → MongoDB'],
+    hints: ['Orders  PostgreSQL (ACID transactions)', 'Leaderboard  Redis sorted sets', 'Activity feed  Cassandra (write-heavy, time-series)', 'Social graph  Neo4j or recursive SQL', 'Documents  MongoDB'],
     evaluationCriteria: ['ACID vs BASE', 'CAP theorem mentioned', 'Correct DB for each use case with reasoning', 'Horizontal scaling advantage of NoSQL'],
     tags: ['database', 'sql', 'nosql', 'acid', 'cap-theorem'],
   },
