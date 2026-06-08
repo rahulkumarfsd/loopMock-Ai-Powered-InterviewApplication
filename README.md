@@ -84,7 +84,7 @@ LoopMock simulates **complete, multi-round interview loops** across:
 - ⚙️ **System Design** — Distributed systems, databases, caching, fan-out
 - 💬 **Behavioral** — STAR framework, Amazon Leadership Principles
 - 🖥️ **Frontend** — React internals, JS event loop, CSS architecture
-- 🔧 **Backend** — Node.js concurrency, JWT, REST API design, indexing
+- text-accent **Backend** — Node.js concurrency, JWT, REST API design, indexing
 - 💻 **Live Coding** — Monaco editor + Judge0 CE with hidden test cases
 
 After every answer, Groq AI returns **recruiter-grade feedback** in under 2 seconds — scoring correctness, depth, clarity, and communication with specific, actionable suggestions.
@@ -149,7 +149,7 @@ graph TB
         ROUTES[Route Handlers]
     end
 
-    subgraph Services["🔧 Core Services"]
+    subgraph Services["text-accent Core Services"]
         AI[Groq AI Service<br/>llama-3.1-8b-instant]
         J0[Judge0 CE<br/>Code Execution]
         MAIL[Resend<br/>Email Service]
@@ -1180,7 +1180,7 @@ npm run precommit
 
 ---
 
-## 🔧 Troubleshooting
+## text-accent Troubleshooting
 
 <details>
 <summary><strong>MongoDB connection fails</strong></summary>

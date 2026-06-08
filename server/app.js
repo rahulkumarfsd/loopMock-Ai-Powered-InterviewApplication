@@ -26,14 +26,20 @@ connectDB();
 const app = express();
 
 app.use(helmet());
+
 app.use(cors({
   origin:      process.env.CLIENT_URL || 'http://localhost:5173',
   credentials: true,
   methods:     ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
 }));
+
+
+
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
+
+
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(passport.initialize());
 
@@ -41,9 +47,10 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString(), env: process.env.NODE_ENV });
 });
 
+
 if (process.env.NODE_ENV === 'development') {
   app.use('/api/debug', require('./routes/debug.routes'));
-  console.log('🔧 Debug: GET /api/debug/env  |  GET /api/debug/ai');
+  console.log('Debug: GET /api/debug/env  |  GET /api/debug/ai');
 }
 
 app.use('/api/auth',       apiLimiter, authRoutes);
@@ -54,6 +61,7 @@ app.use('/api/feedback',   aiLimiter,  feedbackRoutes);
 app.use('/api/coding',     apiLimiter, codingRoutes);
 app.use('/api/analytics',  apiLimiter, analyticsRoutes);
 app.use('/api/resume',     apiLimiter, resumeRoutes);
+
 
 app.use('*', (req, res) => {
   res.status(404).json({ success: false, message: `Route ${req.originalUrl} not found` });

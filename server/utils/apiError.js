@@ -1,12 +1,14 @@
+// custom error classs
 class ApiError extends Error {
   constructor(statusCode, message, errors = []) {
     super(message);
     this.statusCode = statusCode;
     this.errors = errors;
     this.isOperational = true;
-    Error.captureStackTrace(this, this.constructor);
+    Error.captureStackTrace(this, this.constructor); 
   }
 }
+// Error.captureStackTrace() is a Node.js method used to create a clean error stack trace for debugging
 
 // Wrap async route handlers — eliminates try/catch boilerplate
 const asyncHandler = (fn) => (req, res, next) => {
