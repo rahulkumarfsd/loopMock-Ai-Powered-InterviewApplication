@@ -11,16 +11,14 @@ const initSocket = (server) => {
     },
   });
 
-  // Peer matchmaking queue: { socketId, userId, type, difficulty }
   const waitingQueue = [];
-  const activeRooms = new Map(); // roomId -> { users, currentQuestion, turn }
+  const activeRooms = new Map(); 
 
   io.on("connection", (socket) => {
     console.log(`Socket connected: ${socket.id}`);
 
-    // ── Join peer match queue ──────────────────────────
     socket.on("peer:join_queue", ({ userId, type, difficulty }) => {
-      // Check if someone compatible is waiting
+
       const matchIndex = waitingQueue.findIndex(
         (w) =>
           w.userId !== userId && w.type === type && w.difficulty === difficulty,
@@ -28,7 +26,7 @@ const initSocket = (server) => {
 
       if (matchIndex !== -1) {
         const partner = waitingQueue.splice(matchIndex, 1)[0];
-        const roomId = `room_${Date.now()}`;
+        const roomId = `room_${Date.now()}`; // Good for 100 to 500 users for now
 
         socket.join(roomId);
         io.sockets.sockets.get(partner.socketId)?.join(roomId);
@@ -36,7 +34,7 @@ const initSocket = (server) => {
         activeRooms.set(roomId, {
           users: [userId, partner.userId],
           sockets: [socket.id, partner.socketId],
-          turn: 0, // index of who is interviewer
+          turn: 0, 
           questionIndex: 0,
         });
 
@@ -51,13 +49,12 @@ const initSocket = (server) => {
       }
     });
 
-    // ── Leave queue ───────────────────────────────────
     socket.on("peer:leave_queue", () => {
       const idx = waitingQueue.findIndex((w) => w.socketId === socket.id);
       if (idx !== -1) waitingQueue.splice(idx, 1);
     });
 
-    // ── In-room events ────────────────────────────────
+
     socket.on("peer:send_question", ({ roomId, question }) => {
       socket.to(roomId).emit("peer:receive_question", { question });
     });
@@ -87,18 +84,16 @@ const initSocket = (server) => {
       activeRooms.delete(roomId);
     });
 
-    // ── Typing indicator ──────────────────────────────
+  
     socket.on("peer:typing", ({ roomId }) => {
       socket.to(roomId).emit("peer:partner_typing");
     });
 
-    // ── Disconnect ────────────────────────────────────
     socket.on("disconnect", () => {
-      // Remove from queue
+    
       const idx = waitingQueue.findIndex((w) => w.socketId === socket.id);
       if (idx !== -1) waitingQueue.splice(idx, 1);
 
-      // Notify partner in any active room
       activeRooms.forEach((room, roomId) => {
         if (room.sockets.includes(socket.id)) {
           socket.to(roomId).emit("peer:partner_disconnected");
