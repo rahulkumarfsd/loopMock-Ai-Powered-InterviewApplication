@@ -10,14 +10,12 @@ const userSchema = new mongoose.Schema(
     avatar:   { type: String, default: '' },
     isEmailVerified: { type: Boolean, default: false },
 
-    // ── Monthly usage counters ────────────────────────
     usage: {
       interviewsThisMonth: { type: Number, default: 0 },
       resumesThisMonth:    { type: Number, default: 0 },
       lastResetAt:         { type: Date,   default: Date.now },
     },
 
-    // ── Stats ─────────────────────────────────────────
     stats: {
       totalInterviews: { type: Number, default: 0 },
       averageScore:    { type: Number, default: 0 },
@@ -26,7 +24,6 @@ const userSchema = new mongoose.Schema(
       totalQuestions:  { type: Number, default: 0 },
     },
 
-    // ── Topic scores (radar chart) ────────────────────
     topicScores: {
       dsa:          { type: Number, default: 0 },
       systemDesign: { type: Number, default: 0 },

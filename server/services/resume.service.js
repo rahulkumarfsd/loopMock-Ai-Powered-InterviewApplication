@@ -86,7 +86,7 @@ const analyzeResume = async (resumeId) => {
         role:   'Unknown',
         skills: { strong: [], weak: [], missing: [] },
         interviewProbability: 0,
-        summary: '⚠️ The uploaded file does not appear to be a resume. Please upload your actual CV/resume (PDF, DOCX, or TXT) containing your work experience, education, and skills.',
+        summary: 'text-accent The uploaded file does not appear to be a resume. Please upload your actual CV/resume (PDF, DOCX, or TXT) containing your work experience, education, and skills.',
         generatedQuestions: [],
       };
       resume.isAnalyzed    = true;

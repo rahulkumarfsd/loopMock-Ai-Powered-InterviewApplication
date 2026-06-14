@@ -84,7 +84,7 @@ export default function ResumeAnalyzer() {
   });
 
   const analysis     = resume?.analysis;
-  const isInvalidFile = analysis?.summary?.startsWith('⚠️');
+  const isInvalidFile = analysis?.summary?.startsWith('text-accent');
   const probColor    = (p) => p >= 70 ? '#10d98c' : p >= 50 ? '#f59e0b' : '#f87171';
   const circumference = 2 * Math.PI * 40;
 
@@ -172,7 +172,7 @@ export default function ResumeAnalyzer() {
               </div>
               <h3 className="font-medium text-danger text-sm sm:text-base mb-2">This doesn't look like a resume</h3>
               <p className="text-xs sm:text-sm text-[#7a7a8a] mb-4 max-w-md mx-auto leading-relaxed">
-                {analysis.summary.replace('⚠️ ', '')}
+                {analysis.summary.replace('text-accent ', '')}
               </p>
               <div className="bg-bg-4 rounded-xl p-4 text-left max-w-sm w-full mb-5 border border-border/40">
                 <p className="text-xs font-semibold mb-2 text-[#e0e0e6] flex items-center gap-1.5">

@@ -2,7 +2,7 @@ const { createClient } = require('redis');
 
 let redisClient = null;
 let isConnected = false;
-let errorLogged  = false; // only log once
+let errorLogged  = false; 
 
 const connectRedis = async () => {
   try {
@@ -10,20 +10,18 @@ const connectRedis = async () => {
       url: process.env.REDIS_URL || 'redis://localhost:6379',
       socket: {
         reconnectStrategy: (retries) => {
-          // Stop retrying after 3 attempts — Redis is not running locally
           if (retries >= 3) {
             if (!errorLogged) {
-              console.warn('⚠️  Redis not available — caching disabled (app works fine without it)');
+              console.warn('  Redis not available — caching disabled (app works fine without it)');
               errorLogged = true;
             }
-            return false; // stop retrying
+            return false; 
           }
-          return Math.min(retries * 500, 2000); // wait before retry
+          return Math.min(retries * 500, 2000); 
         },
       },
     });
 
-    // Suppress per-event error spam — reconnectStrategy handles it
     redisClient.on('error', () => {
       isConnected = false;
     });
@@ -36,7 +34,7 @@ const connectRedis = async () => {
     console.log(' Redis connected');
   } catch (err) {
     if (!errorLogged) {
-      console.warn('⚠️  Redis not available — caching disabled (app works fine without it)');
+      console.warn('text-accent  Redis not available — caching disabled (app works fine without it)');
       errorLogged = true;
     }
     isConnected = false;

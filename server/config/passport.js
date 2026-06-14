@@ -4,7 +4,6 @@ const { Strategy: GoogleStrategy } = require('passport-google-oauth20');
 const User = require('../models/User.model');
 
 
-// ─── JWT Strategy ─────────────────────────────────────
 passport.use(new JwtStrategy(
   {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -21,7 +20,7 @@ passport.use(new JwtStrategy(
   }
 ));
 
-// ─── Google OAuth Strategy ────────────────────────────
+
 passport.use(new GoogleStrategy(
   {
     clientID: process.env.GOOGLE_CLIENT_ID,
@@ -33,7 +32,6 @@ passport.use(new GoogleStrategy(
       let user = await User.findOne({ googleId: profile.id });
 
       if (!user) {
-        // Check if email already registered
         user = await User.findOne({ email: profile.emails[0].value });
         if (user) {
           user.googleId = profile.id;
