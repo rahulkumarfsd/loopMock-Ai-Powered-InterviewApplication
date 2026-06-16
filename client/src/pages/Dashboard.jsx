@@ -99,7 +99,7 @@ export default function Dashboard() {
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto w-full">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between mb-6 sm:mb-8">
+      <div className="mt-12 sm:mt-0 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between mb-6 sm:mb-8 ">
         <div>
           <h1 className="font-display text-xl sm:text-2xl font-bold">
             Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 17 ? 'afternoon' : 'evening'},{' '}

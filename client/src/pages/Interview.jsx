@@ -128,11 +128,12 @@ export default function Interview() {
     
     return (
       <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full">
-        <h1 className="font-display text-xl sm:text-2xl font-bold mb-1">AI Interview Simulator</h1>
+        <div className='mt-12 sm:mt-0'>
+          <h1 className="font-display text-xl sm:text-2xl font-bold mb-1">AI Interview Simulator</h1>
         <p className="text-[#7a7a8a] text-xs sm:text-sm mb-6 sm:mb-8">
           Choose your interview type and start practicing with real AI feedback loops
         </p>
-
+        </div>
         {/* Mode grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6 sm:mb-8">
           {MODES.map((m) => {

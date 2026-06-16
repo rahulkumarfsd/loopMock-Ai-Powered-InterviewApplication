@@ -53,9 +53,11 @@ export default function Analytics() {
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto w-full">
-      <h1 className="font-display text-xl sm:text-2xl font-bold mb-1 sm:mb-2">Performance Analytics</h1>
+      <div className='mt-12 sm:mt-0'>
+        <h1 className="font-display text-xl sm:text-2xl font-bold mb-1 sm:mb-2">Performance Analytics</h1>
       <p className="text-[#7a7a8a] text-xs sm:text-sm mb-6 sm:mb-8">Track your progress across all interview types</p>
 
+      </div>
       {/* Stats - Grid handles 1 col on mobile, 2 on tablet, 4 on desktop */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 sm:mb-8">
         {[

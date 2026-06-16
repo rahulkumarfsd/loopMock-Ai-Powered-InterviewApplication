@@ -230,7 +230,7 @@ export default function PeerMock() {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-6">
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-8 mt-12 sm:mt-0">
         <div className="flex items-center gap-3 mb-2">
           <Users
             size={30}

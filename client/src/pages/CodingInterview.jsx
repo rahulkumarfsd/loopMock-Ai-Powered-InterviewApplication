@@ -203,7 +203,8 @@ export default function CodingInterview() {
     <div className="min-h-screen bg-[#0d0d0f]">
       {/* Header */}
       <div className="border-b border-[#2a2a35] px-4 sm:px-6 py-3 sm:py-4">
-        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+      
+        <div className="mt-12 sm:mt-0 flex flex-col sm:flex-row sm:items-center gap-3">
           <h1 className="font-display text-lg font-bold text-white">Problems</h1>
 
           {/* Difficulty filter */}
