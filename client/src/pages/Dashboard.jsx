@@ -18,12 +18,12 @@ import {
 } from "lucide-react";
 
 const MODES = [
-  { type: 'dsa',           label: 'DSA Interview',  desc: 'Arrays, trees, graphs, dynamic programming', icon: Brain },
+  { type: 'dsa',          label: 'DSA Interview',  desc: 'Arrays, trees, graphs, dynamic programming', icon: Brain },
   { type: 'system-design', label: 'System Design',  desc: 'Design Twitter, Uber, WhatsApp at scale',     icon: Shuffle },
   { type: 'behavioral',    label: 'Behavioral',     desc: 'STAR method, leadership, conflict resolution',icon: MessageSquare },
   { type: 'frontend',      label: 'Frontend Dev',   desc: 'React, JS, CSS, browser APIs',               icon: Monitor },
   { type: 'backend',       label: 'Backend Dev',    desc: 'Node.js, databases, REST, system design',    icon: Database },
-  { type: 'mixed',         label: 'Mixed Round',    desc: 'Random questions across all categories',     icon: Boxes },
+  { type: 'mixed',         label: 'Mixed Round',    desc: 'Random questions across all categories',      icon: Boxes },
 ];
 
 export default function Dashboard() {
@@ -98,7 +98,6 @@ export default function Dashboard() {
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto w-full">
-      {/* Header */}
       <div className="mt-12 sm:mt-0 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between mb-6 sm:mb-8 ">
         <div>
           <h1 className="font-display text-xl sm:text-2xl font-bold">
@@ -112,10 +111,9 @@ export default function Dashboard() {
         </button>
       </div>
 
-      {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 sm:mb-8">
         {[
-          { label: 'Interviews Done', value: stats.totalInterviews || 0,          color: 'text-accent-2' },
+          { label: 'Interviews Done', value: stats.totalInterviews || 0,          color: 'text-teal-500-2' },
           { label: 'Avg Score',       value: `${stats.averageScore || 0}/10`,      color: 'text-success'  },
           { label: 'Streak',          value: `🔥 ${stats.streak || 0} days`,        color: 'text-warn'     },
           { label: 'Questions Done',  value: stats.totalQuestions || 0,            color: 'text-info'     },
@@ -127,7 +125,6 @@ export default function Dashboard() {
         ))}
       </div>
 
-      {/* Interview Modes Grid */}
       <h2 className="text-[11px] sm:text-xs font-medium text-[#7a7a8a] uppercase tracking-wider mb-3 sm:mb-4">
         Choose Interview Mode
       </h2>
@@ -136,7 +133,7 @@ export default function Dashboard() {
           <button key={m.type} onClick={() => setModal(m)}
             className="card p-4 sm:p-5 text-left hover:border-border-2 hover:-translate-y-0.5 transition-all group">
             <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-bg-4 flex items-center justify-center mb-3 group-hover:bg-accent/10 transition-colors">
-              <m.icon size={20} strokeWidth={2} className="text-accent" />
+              <m.icon size={20} strokeWidth={2} className="text-teal-500" />
             </div>
             <h3 className="font-medium text-sm mb-1">{m.label}</h3>
             <p className="text-xs text-[#7a7a8a] leading-relaxed line-clamp-2">{m.desc}</p>
@@ -144,9 +141,7 @@ export default function Dashboard() {
         ))}
       </div>
 
-      {/* Bottom Layout Split */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-        {/* Recent Sessions */}
         <div className="card p-4 sm:p-5">
           <h3 className="text-[10px] sm:text-xs text-[#7a7a8a] uppercase tracking-wider mb-3 sm:mb-4">Recent Sessions</h3>
           {history.length === 0 ? (
@@ -163,7 +158,7 @@ export default function Dashboard() {
                     className="flex items-center gap-3 py-3 border-b border-border last:border-0 cursor-pointer hover:bg-bg-4 rounded-lg px-2 -mx-2 transition-colors"
                     onClick={() => navigate(`/feedback/${iv._id}`)}>
                     <div className="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
-                      <MatchedIcon size={18} className="text-accent" />
+                      <MatchedIcon size={18} className="text-teal-500" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-xs sm:text-sm font-medium capitalize truncate">{iv.type?.replace('-', ' ')} Interview</p>
@@ -181,7 +176,6 @@ export default function Dashboard() {
           )}
         </div>
 
-        {/* Skill Radar */}
         <div className="card p-4 sm:p-5">
           <h3 className="text-[10px] sm:text-xs text-[#7a7a8a] uppercase tracking-wider mb-3 sm:mb-4">Skill Radar</h3>
           {radarData.some((d) => d.score > 0) ? (
@@ -202,7 +196,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Start Interview Modal */}
       <Modal open={!!modal} onClose={() => !starting && setModal(null)} title={modal ? `Start ${modal.label}` : ''}>
         {modal && (
           <div className="space-y-4">

@@ -56,12 +56,10 @@ export default function Feedback() {
   const fb       = answers[selected]?.feedback;
   const scoreColor = (s) => s >= 8 ? '#10d98c' : s >= 6 ? '#f59e0b' : '#f87171';
 
-  // Dynamic Lucide assignment safely falling back to Boxes icon
   const IconComponent = TYPE_ICONS[interview.type] || Boxes;
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full">
-      {/* Header */}
       <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between mb-6 sm:mb-8">
         <div>
           <button 
@@ -72,7 +70,7 @@ export default function Feedback() {
           </button>
           <h1 className="font-display text-xl sm:text-2xl font-bold">Interview Review</h1>
           <div className="flex items-center gap-2 text-[#7a7a8a] text-xs sm:text-sm capitalize mt-1">
-            <IconComponent size={16} className="text-accent flex-shrink-0" />
+            <IconComponent size={16} className="text-teal-500 flex-shrink-0" />
             <span>{interview.type?.replace('-', ' ')} · {answers.length} questions</span>
           </div>
         </div>
@@ -81,7 +79,6 @@ export default function Feedback() {
         </button>
       </div>
 
-      {/* Overall score card */}
       <div className="card p-5 sm:p-8 mb-6 flex flex-col md:flex-row items-center gap-6 md:gap-8">
         <div className="flex-shrink-0">
           <ScoreRing score={interview.averageScore || 0} size={120} stroke={8} />
@@ -112,7 +109,6 @@ export default function Feedback() {
         </div>
       </div>
 
-      {/* Answer selector */}
       {answers.length > 0 && (
         <>
           <h3 className="text-[10px] sm:text-xs text-[#7a7a8a] uppercase tracking-wider mb-3">Per-Question Breakdown</h3>
@@ -133,7 +129,6 @@ export default function Feedback() {
             ))}
           </div>
 
-          {/* Detailed feedback for selected */}
           {fb && (
             <div className="card p-4 sm:p-6 space-y-5 animate-fade-in">
               <div>
@@ -141,7 +136,6 @@ export default function Feedback() {
                 <p className="font-medium text-xs sm:text-sm leading-relaxed text-[#e0e0e6]">{answers[selected].questionText}</p>
               </div>
 
-              {/* User's answer */}
               <div className="bg-bg-4 rounded-xl p-4">
                 <p className="text-[10px] sm:text-xs text-[#7a7a8a] mb-1.5">Your Answer</p>
                 <p className="text-xs sm:text-sm text-[#c0c0cc] leading-relaxed whitespace-pre-wrap">
@@ -149,7 +143,6 @@ export default function Feedback() {
                 </p>
               </div>
 
-              {/* Score breakdown */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
                 {['correctness', 'clarity', 'depth', 'communication'].map((k) => (
                   <div key={k} className="bg-bg-4 rounded-xl p-3 text-center border border-border/40">
@@ -161,7 +154,6 @@ export default function Feedback() {
                 ))}
               </div>
 
-              {/* Strengths / Weaknesses / Suggestions Layout Block */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="bg-success/5 border border-success/15 rounded-xl p-4">
                   <p className="text-xs text-success font-medium mb-2.5 flex items-center gap-1.5">
@@ -186,7 +178,7 @@ export default function Feedback() {
                 </div>
 
                 <div className="bg-accent/5 border border-accent/15 rounded-xl p-4">
-                  <p className="text-xs text-accent-2 font-medium mb-2.5 flex items-center gap-1.5">
+                  <p className="text-xs text-teal-500-2 font-medium mb-2.5 flex items-center gap-1.5">
                     <Lightbulb size={14} /> Suggestions
                   </p>
                   {fb.suggestions?.length > 0

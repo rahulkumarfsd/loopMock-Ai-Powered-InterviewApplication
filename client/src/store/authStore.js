@@ -16,7 +16,6 @@ const useAuthStore = create(
         set({ token });
       },
 
-      // Called once on app mount — restores session from localStorage
       init: async () => {
         const token = localStorage.getItem('token');
         if (!token) return set({ initialized: true, user: null, token: null });

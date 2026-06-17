@@ -21,7 +21,7 @@ const NAV = [
   { to: '/coding',    label: 'Coding',       icon: Terminal,        section: 'main' },
   { to: '/analytics', label: 'Analytics',    icon: BarChart3,       section: 'practice' },
   { to: '/companies', label: 'Company Prep', icon: Building2,       section: 'practice' },
-  { to: '/resume',    label: 'Resume AI',    icon: FileCheck2,      section: 'practice', badge: 'AI' },
+  // { to: '/resume',    label: 'Resume AI',    icon: FileCheck2,      section: 'practice', badge: 'AI' },
   { to: '/peer',      label: 'Peer Mock',    icon: Users2,          section: 'practice' },
 ];
 
@@ -68,7 +68,7 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Mobile Top Navbar Header Block */}
+      
       <header className="md:hidden fixed top-0 inset-x-0 h-14 bg-[#111116] border-b border-[#ffffff]/10 px-4 flex items-center justify-between z-50">
         <div className="flex items-center gap-2">
           <span className="grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-[#6c63ff] to-[#ec4899]">
@@ -83,13 +83,11 @@ export default function Sidebar() {
         </button>
       </header>
 
-      {/* Persistent Left Sidebar Framework (Desktop) & Overlay Drawer Shell (Mobile) */}
       <aside className={`
         fixed inset-y-0 left-0 w-[240px] md:w-[220px] bg-[#111116] border-r border-[#ffffff]/10 
         flex flex-col h-screen md:sticky md:top-0 z-40 transition-transform duration-300 ease-in-out font-sans
         ${isOpen ? 'translate-x-0 pt-14' : '-translate-x-full md:translate-x-0'}
       `}>
-        {/* Company Header Logo — Hidden completely on mobile menu views */}
         <div className="hidden md:flex items-center gap-2.5 p-5 border-b border-[#ffffff]/10">
           <span className="grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-[#6c63ff] to-[#ec4899] shadow-[0_0_20px_rgba(108,99,255,0.3)]">
             <Sparkles size={14} className="text-white" />
@@ -99,7 +97,6 @@ export default function Sidebar() {
           </span>
         </div>
 
-        {/* Dynamic Nested Nav Block */}
         <nav className="flex-1 overflow-y-auto p-3 space-y-4 custom-scrollbar">
           {['main', 'practice'].map((section) => (
             <div key={section} className="space-y-1">
@@ -110,16 +107,12 @@ export default function Sidebar() {
             </div>
           ))}
         </nav>
-
-        {/* Authenticated Account Profile Card Footer */}
         <div className="p-3 border-t border-[#ffffff]/10 bg-[#0d0d0f]/40">
           <div className="flex items-center gap-3 bg-[#ffffff]/5 rounded-xl p-3 border border-[#ffffff]/5 group">
-            {/* Account Profile Character Avatar Node */}
             <div className="w-8 h-8 rounded-lg shrink-0 bg-gradient-to-br from-[#6c63ff] to-[#ec4899] flex items-center justify-center text-xs font-bold text-white shadow-md">
               {user?.name?.[0]?.toUpperCase() || 'U'}
             </div>
 
-            {/* Profile Context strings */}
             <div className="flex-1 min-w-0">
               <p className="text-xs font-semibold text-white truncate leading-tight">
                 {user?.name || 'User Profile'}
@@ -129,7 +122,6 @@ export default function Sidebar() {
               </p>
             </div>
 
-            {/* Session Logout Action Button Toggle */}
             <button 
               onClick={handleLogout} 
               title="Sign out session"
@@ -141,7 +133,6 @@ export default function Sidebar() {
         </div>
       </aside>
 
-      {/* Backdrop Dimmer overlay layout mask (Mobile contextual toggle block) */}
       {isOpen && (
         <div 
           onClick={() => setIsOpen(false)}

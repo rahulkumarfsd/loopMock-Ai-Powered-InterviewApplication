@@ -1,25 +1,19 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import {
-  User,
-  Mail,
-  Lock,
-  ArrowRight,
-  LogIn,
-} from 'lucide-react';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { User, Mail, Lock, ArrowRight, LogIn } from "lucide-react";
 
-import useAuthStore from '../store/authStore';
+import useAuthStore from "../store/authStore";
 
 const T = {
-  canvas: '#FCFCFC',
-  surface: '#FFFFFF',
-  muted: '#F4F4F5',
-  ink: '#262626',
-  inkMuted: '#737373',
-  brand: '#1E2433',
-  brandFg: '#FCFCFC',
-  border: 'rgba(0,0,0,0.08)',
-  danger: '#EF4444',
+  canvas: "#FCFCFC",
+  surface: "#FFFFFF",
+  muted: "#F4F4F5",
+  ink: "#262626",
+  inkMuted: "#737373",
+  brand: "#1E2433",
+  brandFg: "#FCFCFC",
+  border: "rgba(0,0,0,0.08)",
+  danger: "#EF4444",
 };
 
 export default function Register() {
@@ -27,35 +21,33 @@ export default function Register() {
   const { register } = useAuthStore();
 
   const [form, setForm] = useState({
-    name: '',
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
   });
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setError('');
+    setError("");
 
     if (form.password.length < 6) {
-      setError('Password must be at least 6 characters.');
+      setError("Password must be at least 6 characters.");
       return;
     }
 
-    setLoading(true);
+    loading(true);
 
     const ok = await register(form);
 
     setLoading(false);
 
-    if (ok) navigate('/dashboard');
+    if (ok) navigate("/dashboard");
     else {
-      setError(
-        'Could not create account. Email may already be registered.'
-      );
+      setError("Could not create account. Email may already be registered.");
     }
   };
 
@@ -64,37 +56,36 @@ export default function Register() {
   };
 
   const inputStyle = {
-    width: '100%',
-    padding: '13px 14px 13px 42px',
+    width: "100%",
+    padding: "13px 14px 13px 42px",
     borderRadius: 12,
     border: `1px solid ${T.border}`,
     background: T.surface,
     fontSize: 14,
     color: T.ink,
-    outline: 'none',
-    boxSizing: 'border-box',
-    transition: 'all 0.2s ease',
+    outline: "none",
+    boxSizing: "border-box",
+    transition: "all 0.2s ease",
   };
 
   return (
     <div
       style={{
-        minHeight: '100vh',
+        minHeight: "100vh",
         background: T.canvas,
         fontFamily: "'Inter', sans-serif",
-        display: 'flex',
-        flexDirection: 'column',
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-      {/* Navbar */}
       <nav
         style={{
-          padding: '14px 18px',
+          padding: "14px 18px",
           minHeight: 64,
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "space-between",
           gap: 12,
           borderBottom: `1px solid ${T.border}`,
           background: T.surface,
@@ -103,11 +94,11 @@ export default function Register() {
         <Link
           to="/"
           style={{
-            textDecoration: 'none',
+            textDecoration: "none",
             fontWeight: 700,
             fontSize: 20,
             color: T.ink,
-            letterSpacing: '-0.5px',
+            letterSpacing: "-0.5px",
           }}
         >
           LoopMock
@@ -119,13 +110,13 @@ export default function Register() {
             color: T.inkMuted,
           }}
         >
-          Already have an account?{' '}
+          Already have an account?{" "}
           <Link
             to="/login"
             style={{
               color: T.brand,
               fontWeight: 600,
-              textDecoration: 'none',
+              textDecoration: "none",
             }}
           >
             Sign in
@@ -133,31 +124,29 @@ export default function Register() {
         </span>
       </nav>
 
-      {/* Main */}
       <div
         style={{
           flex: 1,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '24px 16px',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "24px 16px",
         }}
       >
         <div
           style={{
-            width: '100%',
+            width: "100%",
             maxWidth: 420,
           }}
         >
-          {/* Heading */}
           <div style={{ marginBottom: 30 }}>
             <h1
               style={{
-                fontSize: 'clamp(30px, 5vw, 38px)',
+                fontSize: "clamp(30px, 5vw, 38px)",
                 fontWeight: 700,
-                letterSpacing: '-1.5px',
+                letterSpacing: "-1.5px",
                 color: T.ink,
-                margin: '0 0 10px',
+                margin: "0 0 10px",
                 lineHeight: 1.1,
               }}
             >
@@ -172,30 +161,29 @@ export default function Register() {
                 lineHeight: 1.7,
               }}
             >
-              Create your account and start your first mock interview
-              in minutes.
+              Create your account and start your first mock interview in
+              minutes.
             </p>
           </div>
 
-          {/* Google Button */}
           <button
             onClick={handleGoogleLogin}
             style={{
-              width: '100%',
-              padding: '14px 16px',
+              width: "100%",
+              padding: "14px 16px",
               borderRadius: 12,
               background: T.surface,
               border: `1px solid ${T.border}`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
               gap: 10,
               fontSize: 14,
               fontWeight: 600,
               color: T.ink,
-              cursor: 'pointer',
+              cursor: "pointer",
               marginBottom: 22,
-              transition: 'all 0.2s ease',
+              transition: "all 0.2s ease",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = T.muted;
@@ -208,11 +196,10 @@ export default function Register() {
             Continue with Google
           </button>
 
-          {/* Divider */}
           <div
             style={{
-              display: 'flex',
-              alignItems: 'center',
+              display: "flex",
+              alignItems: "center",
               gap: 12,
               marginBottom: 22,
             }}
@@ -243,14 +230,13 @@ export default function Register() {
             />
           </div>
 
-          {/* Error */}
           {error && (
             <div
               style={{
-                background: '#FEF2F2',
-                border: '1px solid #FECACA',
+                background: "#FEF2F2",
+                border: "1px solid #FECACA",
                 borderRadius: 12,
-                padding: '12px 14px',
+                padding: "12px 14px",
                 marginBottom: 18,
                 fontSize: 14,
                 color: T.danger,
@@ -260,13 +246,11 @@ export default function Register() {
             </div>
           )}
 
-          {/* Form */}
           <form onSubmit={handleSubmit}>
-            {/* Name */}
             <div style={{ marginBottom: 16 }}>
               <label
                 style={{
-                  display: 'block',
+                  display: "block",
                   fontSize: 13,
                   fontWeight: 600,
                   color: T.ink,
@@ -276,14 +260,14 @@ export default function Register() {
                 Full name
               </label>
 
-              <div style={{ position: 'relative' }}>
+              <div style={{ position: "relative" }}>
                 <User
                   size={18}
                   style={{
-                    position: 'absolute',
+                    position: "absolute",
                     left: 14,
-                    top: '50%',
-                    transform: 'translateY(-50%)',
+                    top: "50%",
+                    transform: "translateY(-50%)",
                     color: T.inkMuted,
                   }}
                 />
@@ -310,11 +294,10 @@ export default function Register() {
               </div>
             </div>
 
-            {/* Email */}
             <div style={{ marginBottom: 16 }}>
               <label
                 style={{
-                  display: 'block',
+                  display: "block",
                   fontSize: 13,
                   fontWeight: 600,
                   color: T.ink,
@@ -324,14 +307,14 @@ export default function Register() {
                 Email
               </label>
 
-              <div style={{ position: 'relative' }}>
+              <div style={{ position: "relative" }}>
                 <Mail
                   size={18}
                   style={{
-                    position: 'absolute',
+                    position: "absolute",
                     left: 14,
-                    top: '50%',
-                    transform: 'translateY(-50%)',
+                    top: "50%",
+                    transform: "translateY(-50%)",
                     color: T.inkMuted,
                   }}
                 />
@@ -358,11 +341,10 @@ export default function Register() {
               </div>
             </div>
 
-            {/* Password */}
             <div style={{ marginBottom: 22 }}>
               <label
                 style={{
-                  display: 'block',
+                  display: "block",
                   fontSize: 13,
                   fontWeight: 600,
                   color: T.ink,
@@ -372,14 +354,14 @@ export default function Register() {
                 Password
               </label>
 
-              <div style={{ position: 'relative' }}>
+              <div style={{ position: "relative" }}>
                 <Lock
                   size={18}
                   style={{
-                    position: 'absolute',
+                    position: "absolute",
                     left: 14,
-                    top: '50%',
-                    transform: 'translateY(-50%)',
+                    top: "50%",
+                    transform: "translateY(-50%)",
                     color: T.inkMuted,
                   }}
                 />
@@ -407,37 +389,36 @@ export default function Register() {
               </div>
             </div>
 
-            {/* Submit */}
             <button
               type="submit"
               disabled={loading}
               style={{
-                width: '100%',
-                padding: '14px',
+                width: "100%",
+                padding: "14px",
                 borderRadius: 12,
-                background: loading ? '#9CA3AF' : T.brand,
+                background: loading ? "#9CA3AF" : T.brand,
                 color: T.brandFg,
-                border: 'none',
+                border: "none",
                 fontSize: 15,
                 fontWeight: 600,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
                 gap: 8,
-                cursor: loading ? 'not-allowed' : 'pointer',
-                transition: 'all 0.2s ease',
+                cursor: loading ? "not-allowed" : "pointer",
+                transition: "all 0.2s ease",
               }}
               onMouseEnter={(e) => {
                 if (!loading) {
-                  e.currentTarget.style.opacity = '0.9';
+                  e.currentTarget.style.opacity = "0.9";
                 }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.opacity = '1';
+                e.currentTarget.style.opacity = "1";
               }}
             >
               {loading ? (
-                'Creating account...'
+                "Creating account..."
               ) : (
                 <>
                   Create free account
@@ -447,10 +428,9 @@ export default function Register() {
             </button>
           </form>
 
-          {/* Footer */}
           <p
             style={{
-              textAlign: 'center',
+              textAlign: "center",
               marginTop: 18,
               fontSize: 13,
               color: T.inkMuted,
@@ -464,19 +444,19 @@ export default function Register() {
 
           <p
             style={{
-              textAlign: 'center',
+              textAlign: "center",
               marginTop: 14,
               fontSize: 14,
               color: T.inkMuted,
             }}
           >
-            Already have an account?{' '}
+            Already have an account?{" "}
             <Link
               to="/login"
               style={{
                 color: T.brand,
                 fontWeight: 600,
-                textDecoration: 'none',
+                textDecoration: "none",
               }}
             >
               Sign in

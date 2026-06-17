@@ -29,7 +29,6 @@ const DIFF_COLOR = {
   hard:   { text: 'text-red-400',    bg: 'bg-red-400/10 text-red-400'      },
 };
 
-// Custom hook for screen size detection
 function useBreakpoint() {
   const [bp, setBp] = useState(() => ({
     isMobile: window.innerWidth < 640,
@@ -77,11 +76,9 @@ export default function CodingInterview() {
   const [verdict,    setVerdict]    = useState(null);
   const [activeTab,  setActiveTab]  = useState('testcases');
 
-  // Mobile-specific: which panel is visible
-  // 'problem' | 'editor' | 'results'
+  
   const [mobilePanel, setMobilePanel] = useState('problem');
 
-  // ── Load problem list ─────────────────────────────
   useEffect(() => {
     if (id) return;
     fetchProblems();
@@ -107,7 +104,6 @@ export default function CodingInterview() {
     if (e.key === 'Enter') { setPage(1); fetchProblems(); }
   };
 
-  // ── Load problem by ID ────────────────────────────
   useEffect(() => {
     if (!id) return;
     loadProblem(id);
@@ -124,7 +120,7 @@ export default function CodingInterview() {
       const starter = data.problem?.coding?.starterCode?.[lang] || STARTER[lang];
       setCode(starter);
       setActiveTab('testcases');
-      setMobilePanel('problem'); // start on problem panel on mobile
+      setMobilePanel('problem'); 
     } catch {
       toast.error('Problem not found');
       navigate('/coding');
@@ -196,9 +192,6 @@ export default function CodingInterview() {
     toast('Code reset');
   };
 
-  // ─────────────────────────────────────────────────
-  // PROBLEM LIST VIEW
-  // ─────────────────────────────────────────────────
   if (!id) return (
     <div className="min-h-screen bg-[#0d0d0f]">
       {/* Header */}
@@ -207,7 +200,6 @@ export default function CodingInterview() {
         <div className="mt-12 sm:mt-0 flex flex-col sm:flex-row sm:items-center gap-3">
           <h1 className="font-display text-lg font-bold text-white">Problems</h1>
 
-          {/* Difficulty filter */}
           <div className="flex gap-1.5 sm:gap-2 flex-wrap">
             {['all', 'easy', 'medium', 'hard'].map((d) => (
               <button key={d}
@@ -237,7 +229,6 @@ export default function CodingInterview() {
         </div>
       </div>
 
-      {/* Problem list */}
       <div className="px-3 sm:px-6 py-3 sm:py-4">
         {loadingList ? (
           <div className="flex justify-center py-20"><Spinner size="lg" /></div>
@@ -250,7 +241,6 @@ export default function CodingInterview() {
           </div>
         ) : (
           <>
-            {/* Desktop table header */}
             <div className="hidden sm:grid grid-cols-12 text-xs text-[#4a4a5a] uppercase tracking-wider pb-3 border-b border-[#2a2a35]">
               <div className="col-span-1">#</div>
               <div className="col-span-5">Title</div>
@@ -259,13 +249,11 @@ export default function CodingInterview() {
               <div className="col-span-2">Companies</div>
             </div>
 
-            {/* Rows */}
             {problems.map((p, i) => (
               <div key={p._id}
                 className="cursor-pointer border-b border-[#2a2a35] hover:bg-[#1a1a1f] transition-colors group"
                 onClick={() => navigate(`/coding/${p._id}`)}>
 
-                {/* Mobile card layout */}
                 <div className="sm:hidden py-3 px-1">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex-1 min-w-0">
@@ -291,7 +279,6 @@ export default function CodingInterview() {
                   </div>
                 </div>
 
-                {/* Desktop table row */}
                 <div className="hidden sm:grid grid-cols-12 items-center py-3.5">
                   <div className="col-span-1 text-xs text-[#4a4a5a]">{(page - 1) * 20 + i + 1}</div>
                   <div className="col-span-5">
@@ -318,17 +305,16 @@ export default function CodingInterview() {
               </div>
             ))}
 
-            {/* Pagination */}
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-3 mt-6">
                 <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}
                   className="px-4 py-2 bg-[#212128] text-[#7a7a8a] rounded-lg text-sm disabled:opacity-40 hover:text-white transition-colors">
-                  ← Prev
+                   Prev
                 </button>
                 <span className="text-sm text-[#7a7a8a]">{page} / {totalPages}</span>
                 <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}
                   className="px-4 py-2 bg-[#212128] text-[#7a7a8a] rounded-lg text-sm disabled:opacity-40 hover:text-white transition-colors">
-                  Next →
+                  Next 
                 </button>
               </div>
             )}
@@ -338,9 +324,6 @@ export default function CodingInterview() {
     </div>
   );
 
-  // ─────────────────────────────────────────────────
-  // LOADING STATE
-  // ─────────────────────────────────────────────────
   if (loadingProb) return (
     <div className="flex h-screen items-center justify-center bg-[#0d0d0f]">
       <Spinner size="lg" />
@@ -351,9 +334,6 @@ export default function CodingInterview() {
 
   const visibleTests = problem.coding?.testCases?.filter((t) => !t.isHidden) || [];
 
-  // ─────────────────────────────────────────────────
-  // PROBLEM DESCRIPTION PANEL (shared between mobile/tablet/desktop)
-  // ─────────────────────────────────────────────────
   const ProblemPanel = () => (
     <div className="flex-1 overflow-auto p-4 sm:p-5">
       {/* Body */}
@@ -370,7 +350,6 @@ export default function CodingInterview() {
         })}
       </div>
 
-      {/* Examples */}
       {problem.coding?.examples?.length > 0 && (
         <div className="mt-4">
           {problem.coding.examples.map((ex, i) => (
@@ -391,7 +370,6 @@ export default function CodingInterview() {
         </div>
       )}
 
-      {/* Constraints */}
       {problem.coding?.constraints?.length > 0 && (
         <div className="mt-4">
           <p className="text-xs font-semibold text-white mb-2">Constraints</p>
@@ -403,7 +381,6 @@ export default function CodingInterview() {
         </div>
       )}
 
-      {/* Hints */}
       {problem.hints?.length > 0 && (
         <div className="mt-5">
           <p className="text-xs font-semibold text-white mb-2">Hints</p>
@@ -418,7 +395,6 @@ export default function CodingInterview() {
         </div>
       )}
 
-      {/* Companies + Tags */}
       {(problem.company?.length > 0 || problem.tags?.length > 0) && (
         <div className="mt-5 pt-4 border-t border-[#2a2a35] space-y-3">
           {problem.company?.length > 0 && (
@@ -446,12 +422,9 @@ export default function CodingInterview() {
     </div>
   );
 
-  // ─────────────────────────────────────────────────
-  // CONSOLE PANEL (shared)
-  // ─────────────────────────────────────────────────
   const ConsolePanel = () => (
     <div className="overflow-auto p-3 sm:p-4" style={{ maxHeight: isMobile ? '100%' : 260 }}>
-      {/* Test cases */}
+      
       {activeTab === 'testcases' && (
         <div className="space-y-3">
           {visibleTests.length === 0 ? (
@@ -467,7 +440,6 @@ export default function CodingInterview() {
         </div>
       )}
 
-      {/* Results */}
       {activeTab === 'results' && (
         <div>
           {!results && !running && !submitting && (
@@ -521,7 +493,6 @@ export default function CodingInterview() {
         </div>
       )}
 
-      {/* Custom input */}
       {activeTab === 'customInput' && (
         <div>
           <label className="flex items-center gap-2 text-xs text-[#7a7a8a] cursor-pointer mb-3">
@@ -540,9 +511,6 @@ export default function CodingInterview() {
     </div>
   );
 
-  // ─────────────────────────────────────────────────
-  // TOP BAR (shared)
-  // ─────────────────────────────────────────────────
   const TopBar = () => (
     <div className="flex items-center gap-2 px-3 sm:px-4 py-2.5 border-b border-[#2a2a35] bg-[#141416] flex-shrink-0 flex-wrap sm:flex-nowrap">
       <button onClick={() => navigate('/coding')}
@@ -555,7 +523,6 @@ export default function CodingInterview() {
         {problem.difficulty}
       </span>
 
-      {/* Language selector */}
       <select value={lang} onChange={(e) => changeLang(e.target.value)}
         className="bg-[#212128] border border-[#2a2a35] text-white text-xs rounded-lg px-2 sm:px-3 py-1.5 focus:outline-none focus:border-[#6c63ff] flex-shrink-0">
         {LANGUAGES.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}

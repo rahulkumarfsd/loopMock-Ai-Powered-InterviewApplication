@@ -2,12 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
 
-/**
- * Google OAuth callback handler
- * After Google login, server redirects to:
- * /auth/callback?token=xxx
- * We grab the token, store it, then go to dashboard
- */
+
 export default function AuthCallback() {
   const navigate    = useNavigate();
   const [params]    = useSearchParams();
@@ -18,12 +13,10 @@ export default function AuthCallback() {
     const error = params.get('error');
 
     if (error || !token) {
-      // OAuth failed — go back to login with error message
       navigate('/login?error=oauth_failed', { replace: true });
       return;
     }
 
-    // Store token and load user profile
     setToken(token);
     init().then(() => {
       navigate('/dashboard', { replace: true });
@@ -41,7 +34,6 @@ export default function AuthCallback() {
       fontFamily: "'Inter', Arial, sans-serif",
       gap: 16,
     }}>
-      {/* Spinner */}
       <div style={{
         width: 40, height: 40, borderRadius: '50%',
         border: '3px solid #F4F4F5',

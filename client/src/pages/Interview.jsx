@@ -25,7 +25,7 @@ import {
 } from 'lucide-react';
 
 const MODES = [
-  { type: 'dsa',           label: 'DSA Interview',   desc: 'Arrays, trees, graphs, DP',           icon: Brain },
+  { type: 'dsa',           label: 'DSA Interview',   desc: 'Arrays, trees, graphs, DP',         icon: Brain },
   { type: 'system-design', label: 'System Design',  desc: 'Design Twitter, Uber, WhatsApp',      icon: Shuffle },
   { type: 'behavioral',    label: 'Behavioral',      desc: 'STAR method, Amazon LPs, leadership', icon: MessageSquare },
   { type: 'frontend',      label: 'Frontend Dev',    desc: 'React, JS, CSS, browser APIs',        icon: Monitor },
@@ -44,9 +44,9 @@ export default function Interview() {
     submitAnswer, completeInterview, reset,
   } = useInterviewStore();
 
-  const [answer,   setAnswer]   = useState('');
-  const [phase,    setPhase]    = useState('question'); // question | feedback
-  const [config,   setConfig]   = useState({ type: 'dsa', totalQuestions: 5, mode: 'text' });
+  const [answer,    setAnswer]   = useState('');
+  const [phase,     setPhase]    = useState('question');
+  const [config,    setConfig]   = useState({ type: 'dsa', totalQuestions: 5, mode: 'text' });
   const [starting, setStarting] = useState(false);
 
   const timer     = useTimer(600);
@@ -122,7 +122,6 @@ export default function Interview() {
 
   const diffBadge = { easy: 'badge-green', medium: 'badge-amber', hard: 'badge-red' };
 
-  // ── START SCREEN (no interview active) ───────────────
   if (!id || (!hasActiveInterview && !isLoading)) {
     const ActiveModeIcon = MODES.find(m => m.type === config.type)?.icon || Brain;
     
@@ -134,7 +133,6 @@ export default function Interview() {
           Choose your interview type and start practicing with real AI feedback loops
         </p>
         </div>
-        {/* Mode grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6 sm:mb-8">
           {MODES.map((m) => {
             const ModeIcon = m.icon;
@@ -143,7 +141,7 @@ export default function Interview() {
                 onClick={() => setConfig(c => ({ ...c, type: m.type }))}
                 className={`card p-4 sm:p-5 text-left transition-all relative
                   ${config.type === m.type ? 'border-accent bg-accent/5 ring-1 ring-accent/30' : 'hover:border-border-2'}`}>
-                <div className={`w-10 h-10 rounded-xl bg-bg-4 flex items-center justify-center mb-3 ${config.type === m.type ? 'text-accent' : 'text-[#7a7a8a]'}`}>
+                <div className={`w-10 h-10 rounded-xl bg-bg-4 flex items-center justify-center mb-3 ${config.type === m.type ? 'text-teal-500' : 'text-[#7a7a8a]'}`}>
                   <ModeIcon size={20} />
                 </div>
                 <h3 className="font-medium text-sm mb-1">{m.label}</h3>
@@ -156,7 +154,6 @@ export default function Interview() {
           })}
         </div>
 
-        {/* Config row */}
         <div className="card p-4 sm:p-5 mb-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -179,7 +176,6 @@ export default function Interview() {
           </div>
         </div>
 
-        {/* Start button */}
         <button onClick={handleStart} disabled={starting}
           className="btn-primary text-sm sm:text-base px-6 sm:px-8 py-2.5 sm:py-3 w-full sm:w-auto justify-center">
           {starting ? (
@@ -196,7 +192,6 @@ export default function Interview() {
     );
   }
 
-  // ── LOADING: fetching interview question ──────────────
   if (isLoading && !currentQuestion && phase === 'question') {
     return (
       <div className="flex h-full min-h-screen items-center justify-center gap-3 p-4">
@@ -211,10 +206,8 @@ export default function Interview() {
   const answered = interview.questionsAnswered || 0;
   const total    = interview.totalQuestions    || 5;
 
-  // ── ACTIVE INTERVIEW ──────────────────────────────────
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-4 sm:space-y-6">
-      {/* Progress header container */}
       <div className="flex flex-col md:flex-row md:items-center gap-3 sm:gap-4 bg-bg-3 p-3 sm:p-4 rounded-2xl border border-border/40">
         <span className="text-xs sm:text-sm text-[#7a7a8a] flex-shrink-0">
           Question <strong className="text-white">{questionNumber}</strong> of {total}
@@ -234,7 +227,6 @@ export default function Interview() {
         </div>
       </div>
 
-      {/* Question panel block */}
       {currentQuestion && (
         <div className="card p-5 sm:p-6">
           <div className="flex items-center gap-3 mb-4">
@@ -255,7 +247,7 @@ export default function Interview() {
           
           {currentQuestion.hints?.length > 0 && (
             <details className="mt-4 group">
-              <summary className="text-xs text-accent-2 cursor-pointer hover:text-accent select-none font-medium flex items-center gap-1">
+              <summary className="text-xs text-teal-500-2 cursor-pointer hover:text-teal-500 select-none font-medium flex items-center gap-1">
                 Show available prompt hints ({currentQuestion.hints.length})
               </summary>
               <ul className="mt-2.5 space-y-2 pl-1">
@@ -268,7 +260,6 @@ export default function Interview() {
         </div>
       )}
 
-      {/* Fetching error fallback element layout */}
       {!currentQuestion && !isLoading && phase === 'question' && (
         <div className="card p-8 text-center max-w-sm mx-auto">
           <p className="text-[#7a7a8a] text-sm mb-4">Failed to fetch prompt generation context</p>
@@ -276,7 +267,6 @@ export default function Interview() {
         </div>
       )}
 
-      {/* Answer box implementation panel */}
       {phase === 'question' && currentQuestion && (
         <div className="card overflow-hidden">
           <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-bg-4">
@@ -284,7 +274,7 @@ export default function Interview() {
             {isSupported && (
               <button onClick={listening ? stopVoice : startVoice}
                 className={`btn-ghost text-xs py-1 px-2.5 flex items-center gap-1.5 rounded-lg transition-colors
-                  ${listening ? 'text-danger bg-danger/10 hover:bg-danger/20' : 'text-accent bg-accent/10 hover:bg-accent/20'}`}>
+                  ${listening ? 'text-danger bg-danger/10 hover:bg-danger/20' : 'text-teal-500 bg-accent/10 hover:bg-accent/20'}`}>
                 {listening ? <><MicOff size={13} /> Stop Voice</> : <><Mic size={13} /> Voice capture</>}
               </button>
             )}
@@ -298,7 +288,7 @@ export default function Interview() {
                     style={{ height: '70%', animationDelay: `${i * 0.12}s` }} />
                 ))}
               </div>
-              <span className="text-[11px] font-medium text-accent-2 animate-pulse">Streaming raw audio stream pipeline…</span>
+              <span className="text-[11px] font-medium text-teal-500-2 animate-pulse">Streaming raw audio stream pipeline…</span>
             </div>
           )}
 
@@ -322,10 +312,8 @@ export default function Interview() {
         </div>
       )}
 
-      {/* Multi-layered dynamic Evaluation panel block */}
       {phase === 'feedback' && lastFeedback && (
         <div className="card p-4 sm:p-6 space-y-6 animate-fade-in">
-          {/* Main Score row */}
           <div className="flex flex-col lg:flex-row items-center lg:items-start gap-6 pb-6 border-b border-border/40">
             <div className="text-center bg-bg-4 p-4 rounded-2xl border border-border/60 min-w-[110px] w-full lg:w-auto">
               <div className="font-display text-3xl sm:text-4xl font-bold"
@@ -352,12 +340,11 @@ export default function Interview() {
             </div>
           </div>
 
-          {/* S / W / S dynamic flex container columns */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               { label: 'Strengths',   key: 'strengths',   textCls: 'text-success', bgCls: 'bg-success/5 border-success/15', icon: CheckCircle2 },
               { label: 'Weaknesses',  key: 'weaknesses',  textCls: 'text-danger',  bgCls: 'bg-danger/5 border-danger/15',   icon: XCircle },
-              { label: 'Suggestions', key: 'suggestions', textCls: 'text-accent-2',bgCls: 'bg-accent/5 border-accent/15',   icon: Lightbulb },
+              { label: 'Suggestions', key: 'suggestions', textCls: 'text-teal-500-2',bgCls: 'bg-accent/5 border-accent/15',   icon: Lightbulb },
             ].map(({ label, key, textCls, bgCls, icon: TargetIcon }) => (
               <div key={key} className={`border rounded-xl p-4 flex flex-col ${bgCls}`}>
                 <p className={`text-xs font-semibold mb-2.5 flex items-center gap-1.5 ${textCls}`}>
@@ -378,7 +365,7 @@ export default function Interview() {
 
           {lastFeedback.aiExplanation && (
             <div className="text-xs sm:text-sm text-[#7a7a8a] bg-bg-4 rounded-xl px-4 py-3 leading-relaxed border border-border/40 flex items-start gap-2">
-              <Sparkles size={16} className="text-accent mt-0.5 flex-shrink-0" />
+              <Sparkles size={16} className="text-teal-500 mt-0.5 flex-shrink-0" />
               <span>{lastFeedback.aiExplanation}</span>
             </div>
           )}

@@ -94,7 +94,7 @@ export default function ResumeAnalyzer() {
   });
 
   const analysis = resume?.analysis;
-  const isInvalidFile = analysis?.summary?.startsWith("text-accent");
+  const isInvalidFile = analysis?.summary?.startsWith("text-teal-500");
   const probColor = (p) =>
     p >= 70 ? "#10d98c" : p >= 50 ? "#f59e0b" : "#f87171";
   const circumference = 2 * Math.PI * 40;
@@ -141,7 +141,7 @@ export default function ResumeAnalyzer() {
         ) : (
           <div className="max-w-md mx-auto flex flex-col items-center">
             <div
-              className={`p-4 rounded-full bg-bg-4 mb-4 text-accent transition-transform duration-200 ${isDragActive ? "scale-110" : ""}`}
+              className={`p-4 rounded-full bg-bg-4 mb-4 text-teal-500 transition-transform duration-200 ${isDragActive ? "scale-110" : ""}`}
             >
               {isDragActive ? (
                 <FileSpreadsheet size={36} />
@@ -173,7 +173,7 @@ export default function ResumeAnalyzer() {
         <div className="animate-fade-in space-y-4 sm:space-y-6">
           {/* File card */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 card p-4">
-            <div className="p-2 rounded-xl bg-accent/10 text-accent flex-shrink-0 hidden sm:block">
+            <div className="p-2 rounded-xl bg-accent/10 text-teal-500 flex-shrink-0 hidden sm:block">
               <FileText size={20} />
             </div>
             <div className="flex-1 min-w-0">
@@ -228,11 +228,11 @@ export default function ResumeAnalyzer() {
                 This doesn't look like a resume
               </h3>
               <p className="text-xs sm:text-sm text-[#7a7a8a] mb-4 max-w-md mx-auto leading-relaxed">
-                {analysis.summary.replace("text-accent ", "")}
+                {analysis.summary.replace("text-teal-500 ", "")}
               </p>
               <div className="bg-bg-4 rounded-xl p-4 text-left max-w-sm w-full mb-5 border border-border/40">
                 <p className="text-xs font-semibold mb-2 text-[#e0e0e6] flex items-center gap-1.5">
-                  <HelpCircle size={14} className="text-accent" /> Your resume
+                  <HelpCircle size={14} className="text-teal-500" /> Your resume
                   should contain:
                 </p>
                 <ul className="text-xs text-[#7a7a8a] space-y-1.5 pl-1">
@@ -395,7 +395,7 @@ export default function ResumeAnalyzer() {
                         key={i}
                         className="bg-bg-4 rounded-xl p-3 sm:p-4 border border-border/30 flex items-start gap-3 group"
                       >
-                        <div className="mt-0.5 text-accent opacity-60 group-hover:opacity-100 transition-opacity">
+                        <div className="mt-0.5 text-teal-500 opacity-60 group-hover:opacity-100 transition-opacity">
                           <ArrowRight size={14} />
                         </div>
                         <div className="flex-1 min-w-0">

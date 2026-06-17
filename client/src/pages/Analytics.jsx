@@ -61,7 +61,7 @@ export default function Analytics() {
       {/* Stats - Grid handles 1 col on mobile, 2 on tablet, 4 on desktop */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 sm:mb-8">
         {[
-          { label: 'Total Interviews', value: stats.totalInterviews || 0,         color: 'text-accent-2' },
+          { label: 'Total Interviews', value: stats.totalInterviews || 0,         color: 'text-teal-500-2' },
           { label: 'Average Score',    value: `${stats.averageScore || 0}/10`,     color: 'text-success'  },
           { label: 'Best Streak',      value: `${stats.streak || 0} days`,         color: 'text-warn'     },
           { label: 'Total Questions',  value: stats.totalQuestions || 0,           color: 'text-info'     },

@@ -15,7 +15,6 @@ import {
   Swiggy,
 } from 'react-simple-icons';
 
-// Mapping custom component icons directly alongside hex design values
 const COMPANIES = [
   { name: 'Amazon',    slug: 'amazon',    diff: 'hard',   focus: 'Leadership Principles · SDE I–III',   icon: Amazon,    color: '#FF9900', type: 'behavioral',    topics: ['behavioral','system-design','dsa'] },
   { name: 'Google',    slug: 'google',    diff: 'hard',   focus: 'Googliness · L4–L6 SWE',             icon: Google,    color: '#4285F4', type: 'dsa',            topics: ['dsa','system-design','behavioral'] },
@@ -64,7 +63,6 @@ export default function CompanyPrep() {
       </p>
 
       </div>
-      {/* Responsive Grid Setup */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {COMPANIES.map((c) => {
           const IconComponent = c.icon;
@@ -79,7 +77,7 @@ export default function CompanyPrep() {
                     {IconComponent ? (
                       <IconComponent size={20} color={c.color} />
                     ) : (
-                      <Building2 size={20} className="text-accent" />
+                      <Building2 size={20} className="text-teal-500" />
                     )}
                   </div>
                   <div>
@@ -100,7 +98,6 @@ export default function CompanyPrep() {
         })}
       </div>
 
-      {/* Setup Modal */}
       <Modal open={!!selected} onClose={() => !starting && setSelected(null)}
         title={selected ? `${selected.name} Interview Track` : ''}>
         {selected && (
@@ -110,7 +107,7 @@ export default function CompanyPrep() {
                 {selected.icon ? (
                   <selected.icon size={20} color={selected.color} />
                 ) : (
-                  <Building2 size={20} className="text-accent" />
+                  <Building2 size={20} className="text-teal-500" />
                 )}
               </div>
               <div>

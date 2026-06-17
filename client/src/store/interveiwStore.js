@@ -10,7 +10,6 @@ const useInterviewStore = create((set, get) => ({
   isLoading:       false,
   isSubmitting:    false,
 
-  // Called from Dashboard after start — loads interview into store
   setInterview: (interview) => set({ interview, questionNumber: 0, lastFeedback: null, currentQuestion: null }),
 
   startInterview: async ({ type, mode = 'text', company = '', totalQuestions = 5 }) => {
@@ -26,7 +25,6 @@ const useInterviewStore = create((set, get) => ({
     }
   },
 
-  // Load interview by ID (when navigating directly to /interview/:id)
   loadInterview: async (id) => {
     set({ isLoading: true });
     try {
