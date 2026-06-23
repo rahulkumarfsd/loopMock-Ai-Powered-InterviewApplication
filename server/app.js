@@ -16,7 +16,6 @@ const questionRoutes  = require('./routes/question.routes');
 const feedbackRoutes  = require('./routes/feedback.routes');
 const codingRoutes    = require('./routes/coding.routes');
 const analyticsRoutes = require('./routes/analytics.routes');
-const resumeRoutes    = require('./routes/resume.routes');
 
 const { globalErrorHandler }                 = require('./middleware/error.middleware');
 const { apiLimiter, authLimiter, aiLimiter } = require('./middleware/rateLimit.middleware');
@@ -76,7 +75,7 @@ app.use('/api/questions',  apiLimiter, questionRoutes);
 app.use('/api/feedback',   aiLimiter,  feedbackRoutes);
 app.use('/api/coding',     apiLimiter, codingRoutes);
 app.use('/api/analytics',  apiLimiter, analyticsRoutes);
-app.use('/api/resume',     apiLimiter, resumeRoutes);
+
 
 
 app.use('*', (req, res) => {

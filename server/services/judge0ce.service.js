@@ -180,7 +180,7 @@ const testConnectivity = async () => {
     console.log(` Judge0 CE connected — ${data.length} languages available`);
     return true;
   } catch (err) {
-    console.warn(`text-accent  Judge0 CE unreachable: ${err.message}`);
+    console.warn(`text-teal-500  Judge0 CE unreachable: ${err.message}`);
     return false;
   }
 };

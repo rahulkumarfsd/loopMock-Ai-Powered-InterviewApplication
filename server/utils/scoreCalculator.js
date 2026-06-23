@@ -2,7 +2,6 @@ const updateUserStats = (user, interview) => {
   const stats = user.stats;
   const now = new Date();
 
-  // Streak: compare BEFORE updating lastActive
   const today     = now.toDateString();
   const yesterday = new Date(now - 86400000).toDateString();
   const lastActive = stats.lastActive ? new Date(stats.lastActive).toDateString() : null;
@@ -12,9 +11,7 @@ const updateUserStats = (user, interview) => {
   } else if (lastActive !== today) {
     stats.streak = 1;
   }
-  // If lastActive === today, streak stays same (already counted today)
 
-  // Rolling average
   const prev = stats.totalInterviews;
   stats.totalInterviews = prev + 1;
   stats.averageScore = parseFloat(

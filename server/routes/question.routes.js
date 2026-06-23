@@ -13,10 +13,10 @@ const {
   completeInterview, getHistory, getInterview,
 } = require('../controllers/interview.controller');
 const { protect }             = require('../middleware/auth.middleware');
-const { checkInterviewLimit } = require('../middleware/plan.middleware');
+// const { checkInterviewLimit } = require('../middleware/plan.middleware');
 
 router.use(protect);
-router.post('/start',            checkInterviewLimit, startInterview);
+// router.post('/start',            checkInterviewLimit, startInterview);
 router.get('/history',           getHistory);
 router.get('/:id',               getInterview);
 router.get('/:id/next-question', getNextQuestion);

@@ -7,11 +7,10 @@ const { sendWelcome } = require('../services/email.service');
 const COOKIE_OPTS = {
   httpOnly: true,
   secure:   process.env.NODE_ENV === 'production',
-  sameSite: 'strict',
+  sameSite: 'strict', 
   maxAge:   30 * 24 * 60 * 60 * 1000,
 };
 
-// POST /api/auth/register
 const register = asyncHandler(async (req, res, next) => {
   const { name, email, password } = req.body;
 
@@ -26,13 +25,11 @@ const register = asyncHandler(async (req, res, next) => {
 
   res.cookie('refreshToken', refreshToken, COOKIE_OPTS);
 
-  // Send welcome email (non-blocking)
   sendWelcome(user).catch(() => {});
 
   sendSuccess(res, 201, 'Account created successfully', { token: accessToken, user });
 });
 
-// POST /api/auth/login
 const login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -49,10 +46,8 @@ const login = asyncHandler(async (req, res, next) => {
   sendSuccess(res, 200, 'Login successful', { token: accessToken, user: user.toJSON() });
 });
 
-// GET /api/auth/google
 const googleAuth = passport.authenticate('google', { scope: ['profile', 'email'], session: false });
 
-// GET /api/auth/google/callback
 const googleCallback = asyncHandler(async (req, res) => {
   const { accessToken, refreshToken } = generateTokens(req.user._id);
   req.user.refreshToken = refreshToken;
@@ -62,7 +57,6 @@ const googleCallback = asyncHandler(async (req, res) => {
   res.redirect(`${process.env.CLIENT_URL}/auth/callback?token=${accessToken}`);
 });
 
-// POST /api/auth/refresh
 const refreshToken = asyncHandler(async (req, res, next) => {
   const token = req.cookies.refreshToken;
   if (!token) return next(new ApiError(401, 'No refresh token'));
@@ -82,14 +76,12 @@ const refreshToken = asyncHandler(async (req, res, next) => {
   sendSuccess(res, 200, 'Token refreshed', { token: tokens.accessToken });
 });
 
-// POST /api/auth/logout
 const logout = asyncHandler(async (req, res) => {
   if (req.user) await User.findByIdAndUpdate(req.user._id, { refreshToken: '' });
   res.clearCookie('refreshToken');
   sendSuccess(res, 200, 'Logged out');
 });
 
-// GET /api/auth/me
 const getMe = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
   if (!user) throw new ApiError(404, 'User not found');
