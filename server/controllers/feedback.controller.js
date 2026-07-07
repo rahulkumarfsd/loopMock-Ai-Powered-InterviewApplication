@@ -2,7 +2,6 @@ const Interview = require('../models/Interview.model');
 const { asyncHandler, ApiError, sendSuccess } = require('../utils/apiError');
 const { analyzeAnswer } = require('../services/feedback.service');
 
-// @route  POST /api/feedback/analyze
 const analyzeSingle = asyncHandler(async (req, res, next) => {
   const { questionText, answerText, type = 'dsa', difficulty = 'medium' } = req.body;
   if (!questionText) return next(new ApiError(400, 'questionText is required'));
@@ -10,7 +9,6 @@ const analyzeSingle = asyncHandler(async (req, res, next) => {
   sendSuccess(res, 200, 'Feedback generated', { feedback });
 });
 
-// @route  GET /api/feedback/:interviewId/:answerIndex
 const getAnswerFeedback = asyncHandler(async (req, res, next) => {
   const interview = await Interview.findById(req.params.interviewId);
   if (!interview) return next(new ApiError(404, 'Interview not found'));

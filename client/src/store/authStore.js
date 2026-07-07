@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { authService } from '../services';
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 
 const useAuthStore = create(
   persist(

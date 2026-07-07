@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Editor from '@monaco-editor/react';
 import { codingService } from '../services';
 import Spinner from '../components/ui/Spinner';
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 
 const LANGUAGES = [
   { id: 'javascript', label: 'JS',         monacoId: 'javascript' },

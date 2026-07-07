@@ -1,47 +1,225 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: #0d0d0f;
-    color: #f0f0f8;
-    font-family: 'DM Sans', sans-serif;
-    -webkit-font-smoothing: antialiased;
+/* ── Google Fonts ─────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ── Tailwind v4 theme configuration ─────────────────────────── */
+@theme inline {
+  /* Animations for shadcn */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-caret-blink: caret-blink 1.25s ease-out infinite;
+
+  @keyframes accordion-down {
+    from { height: 0; }
+    to { height: var(--radix-accordion-content-height); }
   }
-  ::-webkit-scrollbar { width: 4px; height: 4px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: #35354a; border-radius: 10px; }
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height); }
+    to { height: 0; }
+  }
+  @keyframes caret-blink {
+    0%, 70%, 100% { opacity: 1; }
+    20%, 50% { opacity: 0; }
+  }
+
+  /* Colors mapped to CSS variables */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Fonts */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
 
+/* ── Light Theme (default) ───────────────────────────────────── */
+:root {
+  --radius: 0.625rem;
+  --background: oklch(0.985 0.002 247);
+  --foreground: oklch(0.145 0.015 260);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0.015 260);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0.015 260);
+  --primary: oklch(0.488 0.177 277);
+  --primary-foreground: oklch(0.98 0.005 277);
+  --secondary: oklch(0.945 0.01 260);
+  --secondary-foreground: oklch(0.205 0.015 260);
+  --muted: oklch(0.945 0.01 260);
+  --muted-foreground: oklch(0.556 0.02 260);
+  --accent: oklch(0.945 0.01 260);
+  --accent-foreground: oklch(0.205 0.015 260);
+  --destructive: oklch(0.577 0.245 27.33);
+  --border: oklch(0.885 0.007 260);
+  --input: oklch(0.885 0.007 260);
+  --ring: oklch(0.488 0.177 277);
+  --sidebar: oklch(0.975 0.005 260);
+  --sidebar-foreground: oklch(0.35 0.02 260);
+  --sidebar-border: oklch(0.885 0.007 260);
+  --sidebar-accent: oklch(0.945 0.01 260);
+  --sidebar-accent-foreground: oklch(0.205 0.015 260);
+  --chart-1: oklch(0.488 0.177 277);
+  --chart-2: oklch(0.696 0.17 162.5);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.44);
+}
+
+/* ── Dark Theme ──────────────────────────────────────────────── */
+.dark {
+  --background: oklch(0.13 0.012 270);
+  --foreground: oklch(0.93 0.006 265);
+  --card: oklch(0.17 0.015 270);
+  --card-foreground: oklch(0.93 0.006 265);
+  --popover: oklch(0.17 0.015 270);
+  --popover-foreground: oklch(0.93 0.006 265);
+  --primary: oklch(0.588 0.2 277);
+  --primary-foreground: oklch(0.98 0.005 277);
+  --secondary: oklch(0.22 0.018 270);
+  --secondary-foreground: oklch(0.88 0.01 265);
+  --muted: oklch(0.22 0.018 270);
+  --muted-foreground: oklch(0.58 0.02 265);
+  --accent: oklch(0.22 0.018 270);
+  --accent-foreground: oklch(0.88 0.01 265);
+  --destructive: oklch(0.577 0.245 27.33);
+  --border: oklch(0.27 0.02 270);
+  --input: oklch(0.27 0.02 270);
+  --ring: oklch(0.588 0.2 277);
+  --sidebar: oklch(0.145 0.014 270);
+  --sidebar-foreground: oklch(0.88 0.01 265);
+  --sidebar-border: oklch(0.24 0.018 270);
+  --sidebar-accent: oklch(0.22 0.018 270);
+  --sidebar-accent-foreground: oklch(0.88 0.01 265);
+  --chart-1: oklch(0.588 0.2 277);
+  --chart-2: oklch(0.696 0.17 162.5);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.44);
+}
+
+/* ── Base Layer ──────────────────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--muted-foreground);
+  }
+}
+
+/* ── Backward-compatible component classes ───────────────────── */
+/* These map old class names to the new CSS variable system
+   so existing pages continue to work during incremental migration */
 @layer components {
   .card {
-    @apply bg-bg-3 border border-border rounded-2xl;
+    @apply bg-card border border-border rounded-xl shadow-sm;
   }
+
   .btn-primary {
-  @apply bg-teal-500 text-white px-5 py-2.5 rounded-xl font-medium text-sm
-         hover:bg-teal-600 active:scale-95 transition-all duration-150 flex items-center gap-2;
-}
+    @apply bg-primary text-primary-foreground px-5 py-2.5 rounded-xl font-medium text-sm hover:bg-primary/90 active:scale-95 transition-all duration-150 flex items-center gap-2;
+  }
+
   .btn-outline {
-    @apply bg-transparent text-white border border-border-2 px-5 py-2.5 rounded-xl font-medium text-sm
-           hover:bg-bg-4 active:scale-95 transition-all duration-150 flex items-center gap-2;
+    @apply bg-transparent text-foreground border border-border px-5 py-2.5 rounded-xl font-medium text-sm hover:bg-accent hover:text-accent-foreground active:scale-95 transition-all duration-150 flex items-center gap-2;
   }
+
   .btn-ghost {
-    @apply bg-transparent text-[#7a7a8a] px-3 py-2 rounded-lg text-sm
-           hover:bg-bg-4 hover:text-white transition-all duration-150 flex items-center gap-2;
+    @apply bg-transparent text-muted-foreground px-3 py-2 rounded-lg text-sm hover:bg-accent hover:text-foreground transition-all duration-150 flex items-center gap-2;
   }
+
   .input {
-    @apply w-full bg-bg-4 border border-border text-white rounded-xl px-4 py-3 text-sm
-           placeholder:text-[#4a4a5a] focus:outline-none focus:border-accent transition-colors;
+    @apply w-full bg-secondary border border-input text-foreground rounded-xl px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:border-ring focus:ring-[3px] focus:ring-ring/50 transition-colors;
   }
+
   .badge {
     @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
   }
-  .badge-purple { @apply badge bg-purple-500/10 text-purple-300; }
-  .badge-green  { @apply badge bg-emerald-500/10 text-emerald-400; }
-  .badge-amber  { @apply badge bg-amber-500/10 text-amber-400; }
-  .badge-red    { @apply badge bg-red-500/10 text-red-400; }
-  .badge-blue   { @apply badge bg-sky-500/10 text-sky-400; }
-  .section-title { @apply text-xs text-[#4a4a5a] uppercase tracking-widest font-medium mb-2 px-3; }
+
+  .badge-purple {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-500/10 text-purple-400;
+  }
+
+  .badge-green {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400;
+  }
+
+  .badge-amber {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-500/10 text-amber-400;
+  }
+
+  .badge-red {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/10 text-red-400;
+  }
+
+  .badge-blue {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-sky-500/10 text-sky-400;
+  }
+
+  .section-title {
+    @apply text-xs text-muted-foreground uppercase tracking-widest font-medium mb-2 px-3;
+  }
+}
+/* ── Utility classes for existing pages ──────────────────────── */
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-mono {
+    font-family: var(--font-mono);
+  }
 }

@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
-
+import { Loader2 } from 'lucide-react';
 
 export default function AuthCallback() {
-  const navigate    = useNavigate();
-  const [params]    = useSearchParams();
+  const navigate = useNavigate();
+  const [params] = useSearchParams();
   const { setToken, init } = useAuthStore();
 
   useEffect(() => {
@@ -24,28 +24,9 @@ export default function AuthCallback() {
   }, []);
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: '#FCFCFC',
-      fontFamily: "'Inter', Arial, sans-serif",
-      gap: 16,
-    }}>
-      <div style={{
-        width: 40, height: 40, borderRadius: '50%',
-        border: '3px solid #F4F4F5',
-        borderTopColor: '#1E2433',
-        animation: 'spin 0.8s linear infinite',
-      }} />
-      <p style={{ fontSize: 15, color: '#737373', margin: 0 }}>
-        Signing you in…
-      </p>
-      <style>{`
-        @keyframes spin { to { transform: rotate(360deg); } }
-      `}</style>
+    <div className="flex h-screen items-center justify-center bg-background flex-col gap-4">
+      <Loader2 size={32} className="animate-spin text-primary" />
+      <p className="text-sm text-muted-foreground">Signing you in…</p>
     </div>
   );
 }

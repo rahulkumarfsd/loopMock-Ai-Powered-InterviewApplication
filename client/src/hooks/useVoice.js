@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from 'react';
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 
 export const useVoice = (onTranscript) => {
   const [listening, setListening] = useState(false);

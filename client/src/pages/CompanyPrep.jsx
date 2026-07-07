@@ -1,18 +1,16 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import useInterviewStore from '../store/interveiwStore.js';
-import Modal from '../components/ui/Modal';
-import Spinner from '../components/ui/Spinner';
-import { Building2, Landmark } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
+import { Building2, Loader2 } from 'lucide-react';
 import {
-  Amazon,
-  Google,
-  Meta,
-  Microsoft,
-  Infosys,
-  Tata,
-  Flipkart,
-  Swiggy,
+  Amazon, Google, Meta, Microsoft, Infosys, Tata, Flipkart, Swiggy,
 } from 'react-simple-icons';
 
 const COMPANIES = [
@@ -27,25 +25,33 @@ const COMPANIES = [
   { name: 'Zoho',      slug: 'zoho',      diff: 'medium', focus: 'Product company · generalist roles',  icon: null,      color: '#E51A24', type: 'dsa',            topics: ['dsa','frontend','backend'] },
 ];
 
-const DIFF_BADGE = { easy: 'badge-green', medium: 'badge-amber', hard: 'badge-red' };
-const QUESTIONS  = [3, 5, 8];
+const DIFF_VARIANT = { easy: 'success', medium: 'warning', hard: 'destructive' };
+const QUESTIONS = [3, 5, 8];
+
+const container = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: 0.05 } },
+};
+const item = {
+  hidden: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+};
 
 export default function CompanyPrep() {
   const navigate = useNavigate();
   const { startInterview } = useInterviewStore();
-
   const [selected, setSelected] = useState(null);
-  const [questions, setQuestions] = useState(5);
-  const [starting,  setStarting]  = useState(false);
+  const [questions, setQuestions] = useState('5');
+  const [starting, setStarting] = useState(false);
 
   const handleStart = async () => {
     if (!selected) return;
     setStarting(true);
     const interview = await startInterview({
-      type:           selected.type,
-      company:        selected.slug,
-      totalQuestions: questions,
-      mode:           'text',
+      type: selected.type,
+      company: selected.slug,
+      totalQuestions: Number(questions),
+      mode: 'text',
     });
     setStarting(false);
     if (interview) {
@@ -56,100 +62,112 @@ export default function CompanyPrep() {
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-5xl mx-auto w-full">
-      <div className='mt-12 sm:mt-0'>
-        <h1 className="font-display text-xl sm:text-2xl font-bold mb-1">Company-Specific Prep</h1>
-      <p className="text-[#7a7a8a] text-xs sm:text-sm mb-6 sm:mb-8">
-        Practice with interview styles tailored to each company's culture and hiring process
-      </p>
-
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-xl sm:text-2xl font-bold tracking-tight mb-1">Company-Specific Prep</h1>
+        <p className="text-muted-foreground text-sm">
+          Practice with interview styles tailored to each company's culture and hiring process
+        </p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+      >
         {COMPANIES.map((c) => {
           const IconComponent = c.icon;
           return (
-            <button
-              key={c.name}
-              onClick={() => setSelected(c)}
-              className="card p-4 sm:p-5 text-left hover:border-border-2 hover:-translate-y-0.5 transition-all flex flex-col justify-between group h-full">
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-bg-4 flex items-center justify-center flex-shrink-0 border border-border/30 group-hover:bg-bg-2 transition-colors">
-                    {IconComponent ? (
-                      <IconComponent size={20} color={c.color} />
+            <motion.div key={c.name} variants={item}>
+              <Card
+                className="cursor-pointer hover:border-primary/40 hover:shadow-md hover:-translate-y-0.5 transition-all group h-full flex flex-col"
+                onClick={() => setSelected(c)}
+              >
+                <CardContent className="p-4 sm:p-5 flex flex-col flex-1">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center flex-shrink-0 border border-border/30 group-hover:bg-accent transition-colors">
+                      {IconComponent ? (
+                        <IconComponent size={20} color={c.color} />
+                      ) : (
+                        <Building2 size={20} className="text-primary" />
+                      )}
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-sm leading-tight">{c.name}</h3>
+                      <Badge variant={DIFF_VARIANT[c.diff]} className="mt-1 text-[10px]">{c.diff}</Badge>
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground mb-4 leading-relaxed min-h-[32px] line-clamp-2 flex-1">{c.focus}</p>
+                  <div className="flex gap-1.5 flex-wrap pt-2 border-t border-border/20">
+                    {c.topics.map((t) => (
+                      <Badge key={t} variant="secondary" className="text-[10px]">{t.replace('-', ' ')}</Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          );
+        })}
+      </motion.div>
+
+      {/* Start Dialog */}
+      <Dialog open={!!selected} onOpenChange={(o) => !starting && !o && setSelected(null)}>
+        <DialogContent>
+          {selected && (
+            <>
+              <DialogHeader>
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center border border-border/30">
+                    {selected.icon ? (
+                      <selected.icon size={20} color={selected.color} />
                     ) : (
-                      <Building2 size={20} className="text-teal-500" />
+                      <Building2 size={20} className="text-primary" />
                     )}
                   </div>
                   <div>
-                    <h3 className="font-medium text-sm leading-tight text-[#e0e0e6]">{c.name}</h3>
-                    <span className={`badge ${DIFF_BADGE[c.diff]} text-[10px] px-1.5 py-0.5 mt-1`}>{c.diff}</span>
+                    <DialogTitle>{selected.name} Interview Track</DialogTitle>
+                    <DialogDescription className="capitalize">{selected.diff} difficulty</DialogDescription>
                   </div>
                 </div>
-                <p className="text-xs text-[#7a7a8a] mb-4 leading-relaxed min-h-[32px] line-clamp-2">{c.focus}</p>
-              </div>
-              
-              <div className="flex gap-1.5 flex-wrap pt-1 border-t border-border/20 w-full">
-                {c.topics.map((t) => (
-                  <span key={t} className="badge badge-purple text-[10px]">{t.replace('-', ' ')}</span>
-                ))}
-              </div>
-            </button>
-          );
-        })}
-      </div>
+              </DialogHeader>
 
-      <Modal open={!!selected} onClose={() => !starting && setSelected(null)}
-        title={selected ? `${selected.name} Interview Track` : ''}>
-        {selected && (
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 pb-3 border-b border-border/40">
-              <div className="w-10 h-10 rounded-xl bg-bg-4 flex items-center justify-center border border-border/30">
-                {selected.icon ? (
-                  <selected.icon size={20} color={selected.color} />
-                ) : (
-                  <Building2 size={20} className="text-teal-500" />
-                )}
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-[#e0e0e6]">{selected.name} Assessment</p>
-                <p className="text-xs text-[#7a7a8a] mt-0.5 capitalize">{selected.diff} Difficulty target</p>
-              </div>
-            </div>
+              <div className="space-y-4 py-2">
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {selected.focus} — question sets are programmatically pulled based on target roles, cultural tenets, and historical engineering loop blueprints at {selected.name}.
+                </p>
 
-            <p className="text-xs sm:text-sm text-[#7a7a8a] leading-relaxed">
-              {selected.focus} — question sets are programmatically pulled based on target roles, cultural tenets, and historical engineering loop blueprints at {selected.name}.
-            </p>
-            
-            <div>
-              <label className="block text-xs font-medium text-[#7a7a8a] mb-1.5">Number of Questions</label>
-              <select className="input w-full text-sm" value={questions}
-                onChange={(e) => setQuestions(Number(e.target.value))}>
-                {QUESTIONS.map((n) => (
-                  <option key={n} value={n}>{n} questions (~{n * 5} min)</option>
-                ))}
-              </select>
-            </div>
-            
-            <div className="bg-bg-4 rounded-xl p-3 border border-border/40">
-              <p className="text-[10px] uppercase tracking-wider font-semibold text-[#7a7a8a] mb-1.5">Focus areas</p>
-              <div className="flex gap-1.5 flex-wrap">
-                {selected.topics.map((t) => (
-                  <span key={t} className="badge badge-purple text-xs">{t.replace('-', ' ')}</span>
-                ))}
+                <div className="space-y-2">
+                  <Label>Number of Questions</Label>
+                  <Select value={questions} onValueChange={setQuestions}>
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      {QUESTIONS.map((n) => (
+                        <SelectItem key={n} value={String(n)}>{n} questions (~{n * 5} min)</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="bg-muted rounded-xl p-3 border border-border/40">
+                  <p className="text-[10px] uppercase tracking-wider font-semibold text-muted-foreground mb-1.5">Focus areas</p>
+                  <div className="flex gap-1.5 flex-wrap">
+                    {selected.topics.map((t) => (
+                      <Badge key={t} variant="secondary">{t.replace('-', ' ')}</Badge>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
-            
-            <div className="flex flex-col-reverse sm:flex-row gap-2 sm:gap-3 pt-2">
-              <button onClick={() => setSelected(null)} disabled={starting}
-                className="btn-outline w-full sm:flex-1 justify-center text-sm py-2">Cancel</button>
-              <button onClick={handleStart} disabled={starting}
-                className="btn-primary w-full sm:flex-1 justify-center text-sm py-2">
-                {starting ? <Spinner size="sm" /> : `Start Session `}
-              </button>
-            </div>
-          </div>
-        )}
-      </Modal>
+
+              <DialogFooter>
+                <Button variant="outline" onClick={() => setSelected(null)} disabled={starting}>Cancel</Button>
+                <Button onClick={handleStart} disabled={starting}>
+                  {starting ? <><Loader2 size={16} className="animate-spin" /> Starting...</> : 'Start Session'}
+                </Button>
+              </DialogFooter>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

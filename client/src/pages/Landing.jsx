@@ -178,92 +178,120 @@ function Nav() {
   ];
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50">
-      <div className="mx-auto mt-0 sm:mt-4 max-w-6xl px-2 sm:px-4">
-        <div className="glass-strong rounded-none sm:rounded-2xl px-4 py-3 shadow-card">
-          <div className="flex items-center justify-between">
-            <a href="/" className="flex items-center gap-2">
-              <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-brand shadow-glow">
-                <Sparkles className="h-4 w-4 text-primary-foreground" />
-              </span>
-              <span className="text-sm font-semibold tracking-tight">
-                LoopMock
-              </span>
-              <span className="ml-2 hidden rounded-full border border-border bg-secondary/60 px-2 py-0.5 text-[10px] text-muted-foreground sm:inline">
-                v2.0 · AI Native
-              </span>
-            </a>
-            <nav className="hidden items-center gap-6 md:flex">
-              {links.map((l) => (
-                <a
-                  key={l.label}
-                  href={l.href}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {l.label}
-                </a>
-              ))}
-            </nav>
-            <div className="hidden items-center gap-2 md:flex">
-              <Link
-                to="/register"
-                className="text-sm text-muted-foreground hover:text-foreground"
-              >
-                Sign in
-              </Link>
-              <a
-                href="#cta"
-                className="rounded-lg bg-gradient-brand px-3.5 py-2 text-sm font-medium text-primary-foreground shadow-glow transition-transform hover:scale-[1.02]"
-              >
-                Start Mock Interview
-              </a>
-            </div>
-            <button
-              className="block md:hidden p-1 text-muted-foreground hover:text-foreground"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
-            </button>
+    <header className="fixed inset-x-0 top-0 z-50">
+  <div className="mx-auto max-w-7xl px-4 pt-4">
+    <div className="rounded-2xl border border-white/10 bg-background/70 backdrop-blur-xl shadow-2xl">
+      <div className="flex h-16 items-center justify-between px-6">
+
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-3">
+          <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-brand shadow-glow">
+            <Sparkles className="h-5 w-5 text-white" />
           </div>
 
-          {isOpen && (
-            <div className="mt-4 flex flex-col gap-4 border-t border-border/40 pt-4 pb-2 md:hidden">
-              {links.map((l) => (
-                <a
-                  key={l.label}
-                  href={l.href}
-                  onClick={() => setIsOpen(false)}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {l.label}
-                </a>
-              ))}
-              <hr className="border-border/40" />
-              <div className="flex flex-col gap-3">
-                <Link
-                  to="/register"
-                  onClick={() => setIsOpen(false)}
-                  className="text-center text-sm text-muted-foreground hover:text-foreground py-1"
-                >
-                  Sign in
-                </Link>
-                <a
-                  href="#cta"
-                  onClick={() => setIsOpen(false)}
-                  className="text-center rounded-lg bg-gradient-brand px-3.5 py-2.5 text-sm font-medium text-primary-foreground shadow-glow"
-                >
-                  Start Mock Interview
-                </a>
-              </div>
-            </div>
-          )}
+          <div className="flex flex-col">
+            <span className="bg-gradient-brand bg-clip-text text-transparent text-lg font-bold tracking-tight">
+              LoopMock
+            </span>
+
+            <span className="hidden sm:block text-[11px] text-muted-foreground">
+              AI Interview Platform
+            </span>
+          </div>
+        </Link>
+
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-8">
+          {links.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="group relative text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {link.label}
+
+              <span className="absolute -bottom-1 left-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full" />
+            </a>
+          ))}
+        </nav>
+
+        {/* Right Side */}
+        <div className="hidden md:flex items-center gap-4">
+
+          <div className="hidden lg:flex items-center gap-2 rounded-full border border-border/50 px-3 py-1">
+            <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+            <span className="text-xs text-muted-foreground">
+              AI Engine Online
+            </span>
+          </div>
+
+          <Link
+            to="/register"
+            className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Sign In
+          </Link>
+
+          <Link
+            to="/register"
+            className="rounded-xl bg-gradient-brand px-5 py-2.5 text-sm font-semibold text-white shadow-glow transition-all duration-300 hover:scale-[1.03] hover:shadow-xl"
+          >
+            Start Free Interview
+          </Link>
         </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden rounded-lg p-2 text-muted-foreground hover:bg-secondary"
+        >
+          {isOpen ? (
+            <X className="h-5 w-5" />
+          ) : (
+            <Menu className="h-5 w-5" />
+          )}
+        </button>
       </div>
-    </header>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="border-t border-border/40 md:hidden">
+          <div className="flex flex-col gap-4 p-6">
+
+            {links.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground"
+              >
+                {link.label}
+              </a>
+            ))}
+
+            <div className="my-2 h-px bg-border/40" />
+
+            <Link
+              to="/register"
+              onClick={() => setIsOpen(false)}
+              className="text-sm text-muted-foreground"
+            >
+              Sign In
+            </Link>
+
+            <Link
+              to="/register"
+              onClick={() => setIsOpen(false)}
+              className="rounded-xl bg-gradient-brand px-4 py-3 text-center text-sm font-semibold text-white"
+            >
+              Start Free Interview
+            </Link>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</header>
   );
 }
 
@@ -276,20 +304,22 @@ function Hero() {
       <div className="relative mx-auto max-w-6xl px-4">
         <div className="mx-auto max-w-3xl text-center">
           <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-border bg-secondary/40 px-3 py-1 text-[11px] sm:text-xs text-muted-foreground backdrop-blur max-w-full overflow-hidden text-ellipsis">
-            <span className="h-1.5 w-1.5 flex-shrink-0 animate-pulse-glow rounded-full bg-success" />
+            <span className="h-1.5 w-1.5 flex-shrink-0 animate-pulse rounded-full bg-green-500" />{" "}
             <span className="truncate">
               Powered by Groq · Llama 3.1 · Real-time inference
             </span>
           </div>
-          <h1 className="mt-6 text-balance text-3xl font-semibold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15]">
-            Ace technical interviews with an{" "}
-            <span className="text-gradient-brand">AI recruiter</span> that
-            actually grades you.
+          <h1 className="mt-6 max-w-5xl mx-auto text-center text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl leading-[1.05]">
+            {" "}
+            Stop guessing.
+            <br />
+            Start interviewing with{" "}
+            <span className="text-gradient-brand">AI-powered feedback.</span>
           </h1>
-          <p className="mt-6 text-pretty text-base sm:text-lg text-muted-foreground px-2 sm:px-0">
-            LoopMock simulates FAANG-grade mock interviews across DSA, system
-            design, frontend, backend, and behavioral rounds — with instant
-            recruiter-style feedback after every answer.
+
+          <p className="mt-6 max-w-2xl mx-auto text-lg text-muted-foreground">
+            Experience realistic mock interviews and receive recruiter-style
+            evaluations, scores, and actionable insights after every response.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 px-4 sm:px-0">
             <a
@@ -326,9 +356,9 @@ function Hero() {
           <div className="glass-strong rounded-2xl p-2 sm:p-3 shadow-card">
             <div className="flex flex-wrap items-center gap-2 px-3 py-2 border-b border-border/40 sm:border-0 mb-2 sm:mb-0">
               <div className="flex gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-full bg-destructive/70" />
-                <span className="h-2.5 w-2.5 rounded-full bg-warning/70" />
-                <span className="h-2.5 w-2.5 rounded-full bg-success/70" />
+                <span className="h-2.5 w-2.5 rounded-full bg-destructive/70 animate-pulse" />
+                <span className="h-2.5 w-2.5 rounded-full bg-warning/70 animate-pulse" />
+                <span className="h-2.5 w-2.5 rounded-full bg-success/70 animate-pulse" />
               </div>
               <div className="ml-0 sm:ml-3 rounded-md bg-secondary/60 px-2 py-0.5 text-[10px] sm:text-[11px] text-muted-foreground truncate max-w-xs sm:max-w-none">
                 LoopMock.app / interview / amazon-sde2 / round-2

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { interviewService } from '../services';
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 
 const useInterviewStore = create((set, get) => ({
   interview:       null,
