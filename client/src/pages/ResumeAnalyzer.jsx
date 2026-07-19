@@ -112,7 +112,7 @@ export default function ResumeAnalyzer() {
         <h1 className="font-display text-xl sm:text-2xl font-bold mb-1">
           AI Resume Analyzer
         </h1>
-        <p className="text-[#7a7a8a] text-xs sm:text-sm mb-6 sm:mb-8">
+        <p className="text-muted-foreground text-xs sm:text-sm mb-6 sm:mb-8">
           Upload your resume — get skill gap analysis, interview probability,
           and personalized questions
         </p>
@@ -124,24 +124,24 @@ export default function ResumeAnalyzer() {
         className={`border-2 border-dashed rounded-2xl p-6 sm:p-12 text-center cursor-pointer transition-all mb-6 sm:mb-8
           ${
             uploading
-              ? "opacity-50 cursor-not-allowed border-border"
-              : isDragActive
-                ? "border-accent bg-accent/5"
-                : "border-border-2 hover:border-accent/60 hover:bg-bg-3"
+            ? "opacity-50 cursor-not-allowed border-border"
+            : isDragActive
+              ? "border-primary bg-primary/5"
+              : "border-border hover:border-primary/60 hover:bg-muted"
           }`}
       >
         <input {...getInputProps()} />
         {uploading ? (
           <div className="flex flex-col items-center gap-3 py-4">
             <Spinner size="lg" />
-            <p className="text-[#7a7a8a] text-sm font-medium">
+            <p className="text-muted-foreground text-sm font-medium">
               Uploading and parsing CV content…
             </p>
           </div>
         ) : (
           <div className="max-w-md mx-auto flex flex-col items-center">
             <div
-              className={`p-4 rounded-full bg-bg-4 mb-4 text-teal-500 transition-transform duration-200 ${isDragActive ? "scale-110" : ""}`}
+              className={`p-4 rounded-full bg-muted mb-4 text-primary transition-transform duration-200 ${isDragActive ? "scale-110" : ""}`}
             >
               {isDragActive ? (
                 <FileSpreadsheet size={36} />
@@ -152,7 +152,7 @@ export default function ResumeAnalyzer() {
             <p className="font-medium text-sm sm:text-base mb-1.5">
               {isDragActive ? "Drop it here!" : "Drop your resume"}
             </p>
-            <p className="text-xs sm:text-sm text-[#7a7a8a] mb-4">
+            <p className="text-xs sm:text-sm text-muted-foreground mb-4">
               PDF, DOCX, or TXT · Max 5MB
             </p>
             <button
@@ -161,7 +161,7 @@ export default function ResumeAnalyzer() {
             >
               Browse Files
             </button>
-            <p className="text-[11px] sm:text-xs text-[#4a4a5a] mt-4 leading-relaxed">
+            <p className="text-[11px] sm:text-xs text-muted-foreground/60 mt-4 leading-relaxed">
               Make sure it's your actual CV containing verifiable work history
               blocks and skills
             </p>
@@ -180,7 +180,7 @@ export default function ResumeAnalyzer() {
               <p className="font-medium text-xs sm:text-sm truncate">
                 {resume.fileName || "Resume"}
               </p>
-              <p className="text-[11px] sm:text-xs text-[#7a7a8a] truncate mt-0.5">
+              <p className="text-[11px] sm:text-xs text-muted-foreground truncate mt-0.5">
                 {resume.fileSize
                   ? `${(resume.fileSize / 1024).toFixed(0)} KB · `
                   : ""}
@@ -227,7 +227,7 @@ export default function ResumeAnalyzer() {
               <h3 className="font-medium text-danger text-sm sm:text-base mb-2">
                 This doesn't look like a resume
               </h3>
-              <p className="text-xs sm:text-sm text-[#7a7a8a] mb-4 max-w-md mx-auto leading-relaxed">
+              <p className="text-xs sm:text-sm text-muted-foreground mb-4 max-w-md mx-auto leading-relaxed">
                 {analysis.summary.replace("text-teal-500 ", "")}
               </p>
               <div className="bg-bg-4 rounded-xl p-4 text-left max-w-sm w-full mb-5 border border-border/40">
@@ -235,7 +235,7 @@ export default function ResumeAnalyzer() {
                   <HelpCircle size={14} className="text-teal-500" /> Your resume
                   should contain:
                 </p>
-                <ul className="text-xs text-[#7a7a8a] space-y-1.5 pl-1">
+                <ul className="text-xs text-muted-foreground space-y-1.5 pl-1">
                   <li>• Clear identification structure (Name, Email)</li>
                   <li>• Professional summary or historical job titles</li>
                   <li>• Chronological work experience timeline mapping</li>
@@ -257,7 +257,7 @@ export default function ResumeAnalyzer() {
               {/* Probability + Summary Flex System */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
                 <div className="card p-5 text-center flex flex-col justify-center items-center">
-                  <p className="text-[11px] sm:text-xs text-[#7a7a8a] uppercase tracking-wider mb-4">
+                  <p className="text-[11px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4">
                     Interview Probability
                   </p>
                   <div className="relative w-24 h-24 mb-3 flex-shrink-0">
@@ -311,7 +311,7 @@ export default function ResumeAnalyzer() {
                 </div>
 
                 <div className="card p-5 md:col-span-2">
-                  <p className="text-[10px] sm:text-xs text-[#7a7a8a] uppercase tracking-wider mb-2.5">
+                  <p className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-2.5">
                     AI Summary
                   </p>
                   <p className="text-xs sm:text-sm leading-relaxed text-[#c0c0cc]">
@@ -322,7 +322,7 @@ export default function ResumeAnalyzer() {
 
               {/* Skill Gap Container Layout */}
               <div className="card p-4 sm:p-5">
-                <h3 className="text-[10px] sm:text-xs text-[#7a7a8a] uppercase tracking-wider mb-4 sm:mb-5">
+                <h3 className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-4 sm:mb-5">
                   Skill Gap Analysis
                 </h3>
                 {[
@@ -381,7 +381,7 @@ export default function ResumeAnalyzer() {
               {/* Generated Targeted Questions Grid Layout */}
               {analysis.generatedQuestions?.length > 0 && (
                 <div className="card p-4 sm:p-5">
-                  <h3 className="text-[10px] sm:text-xs text-[#7a7a8a] uppercase tracking-wider mb-2">
+                  <h3 className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mb-2">
                     Questions Based on Your Resume
                   </h3>
                   <p className="text-xs text-[#5a5a6a] mb-4">
@@ -403,7 +403,7 @@ export default function ResumeAnalyzer() {
                             "{q.question}"
                           </p>
                           {q.context && (
-                            <p className="text-[11px] text-[#7a7a8a] italic">
+                            <p className="text-[11px] text-muted-foreground italic">
                               Context target: {q.context}
                             </p>
                           )}

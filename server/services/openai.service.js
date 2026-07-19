@@ -25,7 +25,6 @@ const callGPT = async (systemPrompt, userPrompt, maxTokens = 1000) => {
     ],
     max_tokens:  maxTokens,
     temperature: 0.7,
-    // Groq supports response_format for JSON mode
     response_format: { type: 'json_object' },
   });
 
@@ -33,7 +32,6 @@ const callGPT = async (systemPrompt, userPrompt, maxTokens = 1000) => {
   try {
     return JSON.parse(raw);
   } catch {
-    // Sometimes model wraps in markdown — strip it
     const cleaned = raw.replace(/```json|```/g, '').trim();
     try {
       return JSON.parse(cleaned);

@@ -22,8 +22,10 @@ const startInterview = asyncHandler(async (req, res, next) => {
     type,
     mode,
     company: company.toLowerCase(),
-    totalQuestions: Math.min(Math.max(Number(totalQuestions), 1), 20), // clamp 1-20
+    totalQuestions: Math.min(Math.max(Number(totalQuestions), 1), 20),
     status: "in-progress",
+    answers: [], // always start fresh
+    questionsAnswered: 0,
   });
 
   sendSuccess(res, 201, "Interview started", { interview });
@@ -39,28 +41,30 @@ const getNextQuestion = asyncHandler(async (req, res, next) => {
 
   const answered = interview.answers.length;
   if (answered >= interview.totalQuestions) {
-    return next(new ApiError(400, "All questions have been answered"));
+    return next(
+      new ApiError(
+        400,
+        `All ${interview.totalQuestions} questions have been answered — call /complete`,
+      ),
+    );
   }
 
   const usedIds = interview.answers.map((a) => a.question).filter(Boolean);
 
   const cacheKey = `question:${interview.type}:${interview.company}:${answered}`;
   const cached = await getCache(cacheKey);
-  if (cached) {
+  if (cached)
     return sendSuccess(res, 200, "Question fetched", {
       question: cached,
       questionNumber: answered + 1,
     });
-  }
 
-  const dbQuery = {
+  let dbQuestion = await Question.findOne({
     type: interview.type,
     isActive: true,
     ...(usedIds.length && { _id: { $nin: usedIds } }),
     ...(interview.company && { company: { $in: [interview.company] } }),
-  };
-
-  let dbQuestion = await Question.findOne(dbQuery).sort({ usageCount: 1 });
+  }).sort({ usageCount: 1 });
 
   if (!dbQuestion && interview.company) {
     dbQuestion = await Question.findOne({
@@ -109,7 +113,6 @@ const submitAnswer = asyncHandler(async (req, res, next) => {
     language,
     timeTaken,
   } = req.body;
-
   if (!questionText) return next(new ApiError(400, "questionText is required"));
 
   const interview = await Interview.findById(req.params.id);
@@ -119,11 +122,18 @@ const submitAnswer = asyncHandler(async (req, res, next) => {
   if (interview.status !== "in-progress")
     return next(new ApiError(400, "Interview is not active"));
 
-  const effectiveAnswer = answerText || code || "";
+  if (interview.answers.length >= interview.totalQuestions) {
+    return next(
+      new ApiError(
+        400,
+        `Already answered all ${interview.totalQuestions} questions. Call POST /complete to finish.`,
+      ),
+    );
+  }
 
   const feedback = await analyzeAnswer({
     questionText,
-    answerText: effectiveAnswer,
+    answerText: answerText || code || "",
     type: interview.type,
     difficulty: "medium",
   });
@@ -138,6 +148,7 @@ const submitAnswer = asyncHandler(async (req, res, next) => {
     timeTaken: timeTaken || 0,
     feedback,
   });
+
   interview.questionsAnswered = interview.answers.length;
   await interview.save();
 
@@ -145,6 +156,7 @@ const submitAnswer = asyncHandler(async (req, res, next) => {
     feedback,
     questionsAnswered: interview.questionsAnswered,
     totalQuestions: interview.totalQuestions,
+    remaining: interview.totalQuestions - interview.questionsAnswered,
   });
 });
 
@@ -168,7 +180,6 @@ const completeInterview = asyncHandler(async (req, res, next) => {
   interview.averageScore = scores.length
     ? parseFloat((scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(2))
     : 0;
-
   interview.totalTimeTaken = interview.answers.reduce(
     (sum, a) => sum + (a.timeTaken || 0),
     0,

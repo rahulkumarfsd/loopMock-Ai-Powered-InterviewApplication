@@ -152,9 +152,7 @@ function SidebarContent({ collapsed, onNavigate }) {
       {/* Logo */}
       <div className={cn("flex items-center h-14 shrink-0 border-b border-sidebar-border", collapsed ? "justify-center px-2" : "justify-between px-4")}>
         <div className="flex items-center gap-2.5">
-          <span className="grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-primary to-purple-500 shadow-lg shadow-primary/20">
-            <Sparkles size={14} className="text-white" />
-          </span>
+          <img src="/logo.png" alt="LoopMock" className="h-7 w-7 rounded-lg object-cover" />
           {!collapsed && (
             <motion.span
               initial={{ opacity: 0, width: 0 }}

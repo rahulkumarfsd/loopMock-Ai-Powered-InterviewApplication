@@ -41,7 +41,7 @@ const templates = {
     ${p("You're all set. Here's what you can do:")}
     <ul style="color:#c0c0cc;font-size:14px;line-height:2;padding-left:20px">
       <li>🧠 Practice <b>DSA, System Design, Behavioral</b> interviews with AI</li>
-      <li>💻 Solve coding problems in a <b>LeetCode-style</b> editor</li>
+      <li> Solve coding problems in a <b>LeetCode-style</b> editor</li>
       <li>📄 Upload your resume for <b>AI skill gap analysis</b></li>
       <li>🏢 Prep for <b>Amazon, Google, TCS, Infosys</b> and more</li>
     </ul>

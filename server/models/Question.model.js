@@ -14,7 +14,6 @@ const questionSchema = new mongoose.Schema(
     company:    [{ type: String }],
 
     coding: {
-      // Plain object keyed by language name  e.g. { javascript: '...', python: '...' }
       starterCode:  { type: mongoose.Schema.Types.Mixed, default: {} },
       testCases: [
         {

@@ -38,9 +38,7 @@ export default function Register() {
       {/* Nav */}
       <nav className="flex items-center justify-between px-4 sm:px-6 h-16 border-b border-border bg-card/50 backdrop-blur-sm">
         <Link to="/" className="flex items-center gap-2 font-bold text-lg text-foreground">
-          <span className="grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-primary to-purple-500">
-            <Sparkles size={14} className="text-white" />
-          </span>
+          <img src="/logo.png" alt="LoopMock" className="h-7 w-7 rounded-lg object-cover" />
           Loop<span className="text-primary">Mock</span>
         </Link>
         <span className="text-sm text-muted-foreground">

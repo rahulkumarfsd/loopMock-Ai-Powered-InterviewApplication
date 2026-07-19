@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const SidebarContext = createContext(undefined);
 
@@ -10,6 +11,7 @@ export function SidebarProvider({ children }) {
     return localStorage.getItem(SIDEBAR_STORAGE_KEY) === 'true';
   });
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     localStorage.setItem(SIDEBAR_STORAGE_KEY, String(collapsed));
@@ -18,11 +20,21 @@ export function SidebarProvider({ children }) {
   // Close mobile sidebar on route change
   useEffect(() => {
     setMobileOpen(false);
-  }, []);
+  }, [location.pathname]);
 
-  const toggle = () => setCollapsed((c) => !c);
-  const toggleMobile = () => setMobileOpen((o) => !o);
-  const closeMobile = () => setMobileOpen(false);
+  // Lock body scroll when mobile sidebar is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
+
+  const toggle = useCallback(() => setCollapsed((c) => !c), []);
+  const toggleMobile = useCallback(() => setMobileOpen((o) => !o), []);
+  const closeMobile = useCallback(() => setMobileOpen(false), []);
 
   return (
     <SidebarContext.Provider value={{ collapsed, toggle, mobileOpen, toggleMobile, closeMobile }}>

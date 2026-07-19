@@ -32,7 +32,7 @@
 
 ---
 
-## 📋 Table of Contents
+##  Table of Contents
 
 - [Problem Statement](#-problem-statement)
 - [Solution Overview](#-solution-overview)
@@ -85,7 +85,7 @@ LoopMock simulates **complete, multi-round interview loops** across:
 - 💬 **Behavioral** — STAR framework, Amazon Leadership Principles
 - 🖥️ **Frontend** — React internals, JS event loop, CSS architecture
 - text-teal-500 **Backend** — Node.js concurrency, JWT, REST API design, indexing
-- 💻 **Live Coding** — Monaco editor + Judge0 CE with hidden test cases
+-  **Live Coding** — Monaco editor + Judge0 CE with hidden test cases
 
 After every answer, Groq AI returns **recruiter-grade feedback** in under 2 seconds — scoring correctness, depth, clarity, and communication with specific, actionable suggestions.
 
@@ -100,7 +100,7 @@ After every answer, Groq AI returns **recruiter-grade feedback** in under 2 seco
 ### 🤖 AI Mock Interviews
 Multi-round simulations with dynamic question generation. Questions adapt to your target company and experience level. Groq's `llama-3.1-8b-instant` model delivers sub-2s feedback latency.
 
-### 💻 LeetCode-Grade Coding Environment
+###  LeetCode-Grade Coding Environment
 Monaco editor (VS Code engine) with Judge0 CE code execution. 40+ languages supported. Hidden test cases, per-language starter templates, and AI-generated hints.
 
 ### 📄 Resume Analyzer
@@ -449,8 +449,8 @@ node data/seed.js
 
 Expected output:
 ```
-✅ Connected to MongoDB
-✅ Seeded 40 real interview questions
+ Connected to MongoDB
+ Seeded 40 real interview questions
 
 By type:
   dsa                  14
@@ -560,9 +560,9 @@ VITE_APP_NAME=LoopMock
 | `POST` | `/api/auth/login` | ❌ | Email/password login |
 | `GET` | `/api/auth/google` | ❌ | Initiate Google OAuth |
 | `GET` | `/api/auth/google/callback` | ❌ | OAuth redirect handler |
-| `GET` | `/api/auth/me` | ✅ | Get current user profile |
+| `GET` | `/api/auth/me` |  | Get current user profile |
 | `POST` | `/api/auth/refresh` | ❌ | Refresh access token via cookie |
-| `POST` | `/api/auth/logout` | ✅ | Invalidate refresh token |
+| `POST` | `/api/auth/logout` |  | Invalidate refresh token |
 
 **Register Request/Response:**
 ```json
@@ -585,12 +585,12 @@ VITE_APP_NAME=LoopMock
 
 | Method | Endpoint | Auth | Description |
 |---|---|---|---|
-| `POST` | `/api/interviews/start` | ✅ | Create new interview session |
-| `GET` | `/api/interviews/history` | ✅ | Paginated interview history |
-| `GET` | `/api/interviews/:id` | ✅ | Get interview by ID |
-| `GET` | `/api/interviews/:id/next-question` | ✅ | Fetch next question |
-| `POST` | `/api/interviews/:id/answer` | ✅ | Submit answer + get AI feedback |
-| `POST` | `/api/interviews/:id/complete` | ✅ | Complete session + get summary |
+| `POST` | `/api/interviews/start` |  | Create new interview session |
+| `GET` | `/api/interviews/history` |  | Paginated interview history |
+| `GET` | `/api/interviews/:id` |  | Get interview by ID |
+| `GET` | `/api/interviews/:id/next-question` |  | Fetch next question |
+| `POST` | `/api/interviews/:id/answer` |  | Submit answer + get AI feedback |
+| `POST` | `/api/interviews/:id/complete` |  | Complete session + get summary |
 
 **Start Interview:**
 ```json
@@ -641,8 +641,8 @@ VITE_APP_NAME=LoopMock
 |---|---|---|---|
 | `GET` | `/api/coding/problems` | ❌ | List problems with filters |
 | `GET` | `/api/coding/problems/:id` | ❌ | Get problem details |
-| `POST` | `/api/coding/run` | ✅ | Run against visible test cases |
-| `POST` | `/api/coding/submit` | ✅ | Submit against all test cases |
+| `POST` | `/api/coding/run` |  | Run against visible test cases |
+| `POST` | `/api/coding/submit` |  | Submit against all test cases |
 | `GET` | `/api/coding/languages` | ❌ | List supported languages |
 
 **Query Parameters for `/api/coding/problems`:**
@@ -674,12 +674,12 @@ VITE_APP_NAME=LoopMock
 
 | Method | Endpoint | Auth | Description |
 |---|---|---|---|
-| `POST` | `/api/resume/upload` | ✅ | Upload PDF + trigger analysis |
-| `GET` | `/api/resume/latest` | ✅ | Get most recent resume |
-| `GET` | `/api/resume/:id` | ✅ | Poll analysis status |
-| `GET` | `/api/analytics/overview` | ✅ | Stats + topic scores |
-| `GET` | `/api/analytics/trend` | ✅ | Score trend over N weeks |
-| `GET` | `/api/analytics/topics` | ✅ | Per-topic breakdown |
+| `POST` | `/api/resume/upload` |  | Upload PDF + trigger analysis |
+| `GET` | `/api/resume/latest` |  | Get most recent resume |
+| `GET` | `/api/resume/:id` |  | Poll analysis status |
+| `GET` | `/api/analytics/overview` |  | Stats + topic scores |
+| `GET` | `/api/analytics/trend` |  | Score trend over N weeks |
+| `GET` | `/api/analytics/topics` |  | Per-topic breakdown |
 
 </details>
 
@@ -1088,7 +1088,7 @@ Route 53 → CloudFront → S3 (React build)
 gantt
     title LoopMock Development Roadmap
     dateFormat  YYYY-MM
-    section v1.0 — Core ✅
+    section v1.0 — Core 
     AI Interview Engine      :done, 2025-01, 2025-02
     Judge0 Coding Judge      :done, 2025-02, 2025-03
     Resume Analyzer          :done, 2025-03, 2025-03
@@ -1108,13 +1108,13 @@ gantt
 
 | Version | Feature | Status |
 |---|---|---|
-| v1.0 | AI interview engine, feedback, coding judge | ✅ Done |
-| v1.0 | Resume analyzer, peer mock, analytics | ✅ Done |
-| v1.0 | Landing page, auth, email service | ✅ Done |
+| v1.0 | AI interview engine, feedback, coding judge |  Done |
+| v1.0 | Resume analyzer, peer mock, analytics |  Done |
+| v1.0 | Landing page, auth, email service |  Done |
 | v1.1 | Razorpay payments (INR) | 🔄 In Progress |
 | v1.1 | Mobile responsive all pages | 🔄 In Progress |
-| v1.2 | Video interview mode (MediaRecorder API) | 📋 Planned |
-| v1.2 | Job description → custom question pack | 📋 Planned |
+| v1.2 | Video interview mode (MediaRecorder API) |  Planned |
+| v1.2 | Job description → custom question pack |  Planned |
 | v2.0 | AI Interview Copilot (real-time overlay) | 🔮 Future |
 | v2.0 | Campus cohort dashboards | 🔮 Future |
 | v2.0 | WebRTC peer video in mock rooms | 🔮 Future |

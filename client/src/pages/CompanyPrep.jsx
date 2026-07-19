@@ -9,20 +9,29 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Building2, Loader2 } from 'lucide-react';
-import {
-  Amazon, Google, Meta, Microsoft, Infosys, Tata, Flipkart, Swiggy,
-} from 'react-simple-icons';
+
+// Company logo as colored initial circle
+function CompanyLogo({ name, color, size = 20 }) {
+  return (
+    <span
+      className="inline-flex items-center justify-center rounded-lg font-bold text-white text-xs"
+      style={{ backgroundColor: color, width: size + 4, height: size + 4, fontSize: size * 0.5 }}
+    >
+      {name.slice(0, 2).toUpperCase()}
+    </span>
+  );
+}
 
 const COMPANIES = [
-  { name: 'Amazon',    slug: 'amazon',    diff: 'hard',   focus: 'Leadership Principles · SDE I–III',   icon: Amazon,    color: '#FF9900', type: 'behavioral',    topics: ['behavioral','system-design','dsa'] },
-  { name: 'Google',    slug: 'google',    diff: 'hard',   focus: 'Googliness · L4–L6 SWE',             icon: Google,    color: '#4285F4', type: 'dsa',            topics: ['dsa','system-design','behavioral'] },
-  { name: 'Meta',      slug: 'meta',      diff: 'hard',   focus: 'Move fast · bootcamp culture',        icon: Meta,      color: '#044AF4', type: 'dsa',            topics: ['dsa','system-design','behavioral'] },
-  { name: 'Microsoft', slug: 'microsoft', diff: 'medium', focus: 'Growth mindset · SDE I–III',          icon: Microsoft, color: '#626262', type: 'behavioral',    topics: ['dsa','behavioral','system-design'] },
-  { name: 'Infosys',   slug: 'infosys',   diff: 'easy',   focus: 'Campus to corporate · fresher',       icon: Infosys,   color: '#007CC3', type: 'dsa',            topics: ['dsa','behavioral'] },
-  { name: 'TCS',       slug: 'tcs',       diff: 'easy',   focus: 'NQT · Digital roles',                icon: Tata,      color: '#1B4D91', type: 'dsa',            topics: ['dsa','behavioral'] },
-  { name: 'Flipkart',  slug: 'flipkart',  diff: 'medium', focus: 'E-commerce · SDE roles',              icon: Flipkart,  color: '#2874F0', type: 'system-design',  topics: ['dsa','system-design'] },
-  { name: 'Swiggy',    slug: 'swiggy',    diff: 'medium', focus: 'Fast-paced startup · backend heavy',  icon: Swiggy,    color: '#FC6011', type: 'backend',        topics: ['backend','system-design','dsa'] },
-  { name: 'Zoho',      slug: 'zoho',      diff: 'medium', focus: 'Product company · generalist roles',  icon: null,      color: '#E51A24', type: 'dsa',            topics: ['dsa','frontend','backend'] },
+  { name: 'Amazon',    slug: 'amazon',    diff: 'hard',   focus: 'Leadership Principles · SDE I–III',   color: '#FF9900', type: 'behavioral',    topics: ['behavioral','system-design','dsa'] },
+  { name: 'Google',    slug: 'google',    diff: 'hard',   focus: 'Googliness · L4–L6 SWE',             color: '#4285F4', type: 'dsa',            topics: ['dsa','system-design','behavioral'] },
+  { name: 'Meta',      slug: 'meta',      diff: 'hard',   focus: 'Move fast · bootcamp culture',        color: '#044AF4', type: 'dsa',            topics: ['dsa','system-design','behavioral'] },
+  { name: 'Microsoft', slug: 'microsoft', diff: 'medium', focus: 'Growth mindset · SDE I–III',          color: '#626262', type: 'behavioral',    topics: ['dsa','behavioral','system-design'] },
+  { name: 'Infosys',   slug: 'infosys',   diff: 'easy',   focus: 'Campus to corporate · fresher',       color: '#007CC3', type: 'dsa',            topics: ['dsa','behavioral'] },
+  { name: 'TCS',       slug: 'tcs',       diff: 'easy',   focus: 'NQT · Digital roles',                color: '#1B4D91', type: 'dsa',            topics: ['dsa','behavioral'] },
+  { name: 'Flipkart',  slug: 'flipkart',  diff: 'medium', focus: 'E-commerce · SDE roles',              color: '#2874F0', type: 'system-design',  topics: ['dsa','system-design'] },
+  { name: 'Swiggy',    slug: 'swiggy',    diff: 'medium', focus: 'Fast-paced startup · backend heavy',  color: '#FC6011', type: 'backend',        topics: ['backend','system-design','dsa'] },
+  { name: 'Zoho',      slug: 'zoho',      diff: 'medium', focus: 'Product company · generalist roles',  color: '#E51A24', type: 'dsa',            topics: ['dsa','frontend','backend'] },
 ];
 
 const DIFF_VARIANT = { easy: 'success', medium: 'warning', hard: 'destructive' };
@@ -75,9 +84,7 @@ export default function CompanyPrep() {
         animate="show"
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
       >
-        {COMPANIES.map((c) => {
-          const IconComponent = c.icon;
-          return (
+        {COMPANIES.map((c) => (
             <motion.div key={c.name} variants={item}>
               <Card
                 className="cursor-pointer hover:border-primary/40 hover:shadow-md hover:-translate-y-0.5 transition-all group h-full flex flex-col"
@@ -86,11 +93,7 @@ export default function CompanyPrep() {
                 <CardContent className="p-4 sm:p-5 flex flex-col flex-1">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center flex-shrink-0 border border-border/30 group-hover:bg-accent transition-colors">
-                      {IconComponent ? (
-                        <IconComponent size={20} color={c.color} />
-                      ) : (
-                        <Building2 size={20} className="text-primary" />
-                      )}
+                      <CompanyLogo name={c.name} color={c.color} />
                     </div>
                     <div>
                       <h3 className="font-medium text-sm leading-tight">{c.name}</h3>
@@ -106,8 +109,7 @@ export default function CompanyPrep() {
                 </CardContent>
               </Card>
             </motion.div>
-          );
-        })}
+          ))}
       </motion.div>
 
       {/* Start Dialog */}
@@ -118,11 +120,7 @@ export default function CompanyPrep() {
               <DialogHeader>
                 <div className="flex items-center gap-3 mb-2">
                   <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center border border-border/30">
-                    {selected.icon ? (
-                      <selected.icon size={20} color={selected.color} />
-                    ) : (
-                      <Building2 size={20} className="text-primary" />
-                    )}
+                    <CompanyLogo name={selected.name} color={selected.color} />
                   </div>
                   <div>
                     <DialogTitle>{selected.name} Interview Track</DialogTitle>

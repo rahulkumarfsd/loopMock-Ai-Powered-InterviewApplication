@@ -185,9 +185,8 @@ function Nav() {
 
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3">
-          <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-brand shadow-glow">
-            <Sparkles className="h-5 w-5 text-white" />
-          </div>
+           <img src="/logo.png" alt="LoopMock" className="h-7 w-7 rounded-lg object-cover" />
+  
 
           <div className="flex flex-col">
             <span className="bg-gradient-brand bg-clip-text text-transparent text-lg font-bold tracking-tight">
@@ -200,7 +199,6 @@ function Nav() {
           </div>
         </Link>
 
-        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
           {links.map((link) => (
             <a
@@ -295,7 +293,7 @@ function Nav() {
   );
 }
 
-// ===================== Hero =====================
+
 function Hero() {
   return (
     <section className="relative overflow-hidden pt-28 sm:pt-36 pb-16 sm:pb-24">
